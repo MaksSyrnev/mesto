@@ -1,0 +1,27 @@
+.elements__gallery {
+  list-style: none;
+  width: 882px;
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 282px);
+  gap: 18px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 919px) {
+  .elements__gallery {
+    grid-template-columns: repeat(2, 282px);
+    width: 582px;
+  }
+}
+
+@media screen and (max-width: 619px) {
+  .elements__gallery {
+    grid-template-columns: repeat(1, 282px);
+    gap: 20px;
+    width: 282px;
+  }
+}

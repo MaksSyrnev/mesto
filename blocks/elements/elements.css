@@ -1,0 +1,16 @@
+@import url(./__gallery/elements__gallery.css);
+@import url(./__card/elements__card.css);
+@import url(./__card-img/elements__card-img.css);
+@import url(./__card-footer/elements__card-footer.css);
+@import url(./__card-title/elements__card-title.css);
+@import url(./__card-like/elements__card-like.css);
+
+.elements {
+  width: 100%;
+  max-width: 882px;
+  padding: 0 0 6px 0;
+  margin: 0 auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}

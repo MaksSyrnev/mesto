@@ -1,0 +1,6 @@
+.profile__info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0 0 16px 0;
+}
