@@ -2,5 +2,18 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 0 0 16px 0;
+  margin: 0;
+  padding: 0;
+
+}
+
+@media screen and (max-width: 540px) {
+  .profile__info-row {
+    justify-content: center;
+    margin: 14px auto 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+  }
 }

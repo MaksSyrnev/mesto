@@ -4,5 +4,12 @@
   align-items: center;
   padding: 0;
   margin: 0;
+}
 
+@media screen and (max-width: 540px) {
+  .profile__block {
+    flex-direction: column;
+    max-width: 282px;
+    text-align: center;
+  }
 }

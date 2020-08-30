@@ -16,3 +16,19 @@
   align-items: center;
 
 }
+
+@media screen and (max-width: 919px) {
+  .profile {
+    max-width: 582px;
+    flex-direction: column;
+    padding: 40px 0 36px;
+
+  }
+}
+/*
+@media screen and (max-width: 619px) {
+  .profile {
+    /*max-width: 619px;
+  }
+}
+*/

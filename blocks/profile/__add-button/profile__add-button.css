@@ -16,3 +16,11 @@
   cursor: pointer;
   opacity: .6;
 }
+
+@media screen and (max-width: 919px) {
+  .profile__add-button {
+    margin: 36px 0 0;
+    width: 282px;
+    background-size: 16px;
+  }
+}
