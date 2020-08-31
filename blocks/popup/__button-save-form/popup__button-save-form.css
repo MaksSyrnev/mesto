@@ -16,3 +16,19 @@
   cursor: pointer;
   background: rgba(0, 0, 0, 0.8);
 }
+
+@media screen and (max-width: 619px) {
+  .popup__button-save-form {
+    width: 100%;
+    max-width: 358px;
+  }
+}
+
+@media screen and (max-width: 512px) {
+  .popup__button-save-form {
+    height: 35px;
+    margin-top: 35px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

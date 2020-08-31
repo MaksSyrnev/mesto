@@ -17,8 +17,6 @@ function formOpen () {
   inputs[1].value = jobProfile.textContent;
 }
 
-
-
 // Находим форму в DOM
 let formElement = document.querySelector('.popup__container');// Воспользуйтесь методом querySelector()
 
@@ -30,20 +28,13 @@ function formSubmitHandler (evt) {
                         // О том, как это делать, расскажем позже.
 
     // Находим поля формы в DOM
-    //let inputs = popup.querySelectorAll('input');
-    let nameInput =  formElement.querySelector('.popup__form-input_type_name');
-    let jobInput =  formElement.querySelector('.popup__form-input_type_job');
-
+    let inputs = popup.querySelectorAll('input');
     // Получите значение полей из свойства value
-    let name = nameInput.value;
-    let job = jobInput.value;
     // Выберите элементы, куда должны быть вставлены значения полей
-    //let nameProfile = document.querySelector('.profile__title');
-    //let jobProfile = document.querySelector('.profile__subtitle');
     // Вставьте новые значения с помощью textContent
-    nameProfile.textContent = name;
-    jobProfile.textContent = job;
-
+    nameProfile.textContent = inputs[0].value;
+    jobProfile.textContent = inputs[1].value;
+    popup.classList.remove('popup_opened');
 }
 
 // Прикрепляем обработчик к форме:

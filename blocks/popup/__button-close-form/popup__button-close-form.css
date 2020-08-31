@@ -21,3 +21,22 @@
   cursor: pointer;
   opacity: 0.6;
 }
+
+@media screen and (max-width: 619px) {
+  .popup__button-close-form {
+    width: 28px;
+    height: 28px;
+    top: -26px;
+    right: -26px;
+  }
+}
+
+@media screen and (max-width: 512px) {
+  .popup__button-close-form {
+    width: 18px;
+    height: 18px;
+    top: -16px;
+    right: -16px;
+
+  }
+}
