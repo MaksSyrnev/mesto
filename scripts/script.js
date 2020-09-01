@@ -4,6 +4,7 @@ let closeButton = popup.querySelector('.popup__button-close-form');
 let saveButton = popup.querySelector('.popup__button-save-form');
 let nameProfile = document.querySelector('.profile__title');
 let jobProfile = document.querySelector('.profile__subtitle');
+let formElement = document.querySelector('.popup__form');
 
 
 function formClose () {
@@ -18,8 +19,7 @@ function formOpen () {
 }
 
 // Находим форму в DOM
-let formElement = document.querySelector('.popup__container');// Воспользуйтесь методом querySelector()
-
+// Воспользуйтесь методом querySelector()
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 function formSubmitHandler (evt) {

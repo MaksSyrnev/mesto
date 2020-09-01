@@ -1,6 +1,6 @@
 .header__logo {
   display: block;
-  background-image: url(../../../images/Logo.png);
+  background-image: url(../../../images/logo.svg);
   background-size: cover;
   background-position: center;
   text-decoration: none;
