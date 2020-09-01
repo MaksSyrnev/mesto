@@ -95,8 +95,8 @@
         <button type="button" class="popup__button-close-form"></button>
         <form name="popupeditprofile" method="GET" action="#" class="popup__form">
           <h2 class="popup__form-title">Редактировать профиль</h2>
-          <input type="text" name="username" required class="popup__form-input">
-          <input type="text" name="job" required class="popup__form-input">
+          <input type="text" name="username" required class="popup__form-input js-popup__username"><!-- Классы с префиксом js для использования в коде javascript и не имеют стилей -->
+          <input type="text" name="job" required class="popup__form-input js-popup__job">          <!-- На вебинаре и в тренажере такое использовали -->
           <button type="submit" class="popup__button-save-form">Сохранить</button>
         </form>
       </div>
