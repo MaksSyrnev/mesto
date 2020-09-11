@@ -1,0 +1,21 @@
+.elements__button-del {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: 18px;
+  height: 20px;
+  background-image: url(../../../images/trash.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 18px 19.3px;
+  background-color: transparent;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+
+}
+
+.elements__button-del:hover {
+  cursor: pointer;
+  opacity: .6;
+}

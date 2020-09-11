@@ -4,6 +4,7 @@
 @import url(./__card-footer/elements__card-footer.css);
 @import url(./__card-title/elements__card-title.css);
 @import url(./__button-like/elements__button-like.css);
+@import url(./__button-del/elements__button-del.css);
 
 .elements {
   width: 100%;
