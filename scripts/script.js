@@ -1,12 +1,13 @@
-let popup = document.querySelector('.popup'); // получим обьект модальное окно из DOM в переменную
+
+let popupEditProfile = document.querySelector('.popup_js_editprofile'); // получим обьект модальное окно из DOM в переменную
 let editButton = document.querySelector('.profile__button-edit'); // кнопку редактирования и ниже другие элементы
-let closeButton = popup.querySelector('.popup__button-close-form');
-let saveButton = popup.querySelector('.popup__button-save-form');
+let closeButtonEditProfile = popupEditProfile.querySelector('.popup__button-close-form_js_editprofile');
+let saveButtonEditProfile = popupEditProfile.querySelector('.popup__button-save-form_js_editprofile');
 let nameProfile = document.querySelector('.profile__title');
 let jobProfile = document.querySelector('.profile__subtitle');
-let inputName = popup.querySelector('.popup__form-input_js_username');
-let inputJob = popup.querySelector('.popup__form-input_js_job');
-let formElement = document.querySelector('.popup__form'); // Находим форму в DOM
+let inputName = popupEditProfile.querySelector('.popup__form-input_js_username');
+let inputJob = popupEditProfile.querySelector('.popup__form-input_js_job');
+let formEditProfile = popupEditProfile.querySelector('.popup__form_js_editprofile'); // Находим форму в DOM
 
 const cardTemplate = document.querySelector('#card').content; //находим шаблон картоки на странице
 const elementsGallery = document.querySelector('.elements__gallery'); //контейнер для карточек
@@ -47,41 +48,35 @@ cardElement.querySelector('.elements__card-img').src = item.link;
 cardElement.querySelector('.elements__card-img').alt = item.name;
 cardElement.querySelector('.elements__card-title').textContent = item.name;
 
-//добавляем карточку в контейнер-галлерею для отображания на странице
-elementsGallery.append(cardElement);
-
+elementsGallery.append(cardElement);//добавляем карточку в контейнер-галлерею для отображания на странице
 });
 
-//задекларируем функцию закрытия окна
-function formClose () {
-  popup.classList.remove('popup_opened');
+
+//задекларируем функцию закрытия окна профиля
+function formCloseEditProfile () {
+  popupEditProfile.classList.remove('popup_opened');
 }
 
-//функция открытия
-function formOpen () {
-  popup.classList.add('popup_opened');
+//функция открытия профиля
+function formOpenProfile () {
+  popupEditProfile.classList.add('popup_opened');
   inputName.value = nameProfile.textContent; //подставляем значения из профиля в форму
   inputJob.value = jobProfile.textContent;
 }
 
 
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
-function formSubmitHandler (evt) {
+// Обработчик «отправки» формы
+function formEditProfileSubmitHandler (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-                        // Так мы можем определить свою логику отправки.
-                        // О том, как это делать, расскажем позже.
+
     nameProfile.textContent = inputName.value;
     jobProfile.textContent = inputJob.value;
-    formClose ();
+    formCloseEditProfile();
 }
 
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', formSubmitHandler);
-//обработчики на кнопку редактировать и закрыть
-editButton.addEventListener('click', formOpen);
-closeButton.addEventListener('click', formClose);
+//обработчики
 
 
-
+formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
+editButton.addEventListener('click', formOpenProfile);
+closeButtonEditProfile.addEventListener('click', formCloseEditProfile);
