@@ -8,6 +8,50 @@ let inputName = popup.querySelector('.popup__form-input_js_username');
 let inputJob = popup.querySelector('.popup__form-input_js_job');
 let formElement = document.querySelector('.popup__form'); // Находим форму в DOM
 
+const cardTemplate = document.querySelector('#card').content; //находим шаблон картоки на странице
+const elementsGallery = document.querySelector('.elements__gallery'); //контейнер для карточек
+
+//массив карточек при первом открытии страницы
+const initialCards = [
+  {
+      name: 'Архыз',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+      name: 'Челябинская область',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+      name: 'Иваново',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+      name: 'Камчатка',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+      name: 'Холмогорский район',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+      name: 'Байкал',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+//загрузим карточки из массива
+initialCards.forEach(function (item) {
+//наполним по шаблону одну карточку данными из первого элемента массива
+const cardElement = cardTemplate.cloneNode(true);
+cardElement.querySelector('.elements__card-img').src = item.link;
+cardElement.querySelector('.elements__card-img').alt = item.name;
+cardElement.querySelector('.elements__card-title').textContent = item.name;
+
+//добавляем карточку в контейнер-галлерею для отображания на странице
+elementsGallery.append(cardElement);
+
+});
+
 //задекларируем функцию закрытия окна
 function formClose () {
   popup.classList.remove('popup_opened');
@@ -38,3 +82,6 @@ formElement.addEventListener('submit', formSubmitHandler);
 //обработчики на кнопку редактировать и закрыть
 editButton.addEventListener('click', formOpen);
 closeButton.addEventListener('click', formClose);
+
+
+
