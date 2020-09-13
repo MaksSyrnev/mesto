@@ -94,7 +94,7 @@
     </footer>
 
     <section class="popup popup_js_editprofile">
-      <div class="popup__container">
+      <div class="popup__container popup__container_type_form">
         <button type="button" aria-label="закрыть окно" class="popup__button-close-form"></button>
         <form name="popupeditprofile" method="GET" action="#" class="popup__form popup__form_js_editprofile">
           <h2 class="popup__form-title">Редактировать профиль</h2>
@@ -106,7 +106,7 @@
     </section>
 
     <section class="popup popup_js_addcard">
-      <div class="popup__container">
+      <div class="popup__container popup__container_type_form">
         <button type="button" aria-label="закрыть окно" class="popup__button-close-form"></button>
         <form name="popupaddcard" method="GET" action="#" class="popup__form popup__form_js_addcard">
           <h2 class="popup__form-title">Новое место</h2>
@@ -114,6 +114,14 @@
           <input type="text" name="linkcard" placeholder="Ссылка на картинку" required class="popup__form-input popup__form-input_js_linkcard">          <!-- Использую для идентификации поля ввода -->
           <button type="submit" class="popup__button-save-form">Создать</button>
         </form>
+      </div>
+    </section>
+
+    <section class="popup popup_theme_dark popup_js_imgcard">
+      <div class="popup__container popup__container_type_img">
+        <button type="button" aria-label="закрыть окно" class="popup__button-close-form"></button>
+        <img src="" alt="" class="popup__img">
+        <h3 class="popup__img-name"></h3>
       </div>
     </section>
 

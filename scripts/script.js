@@ -1,4 +1,3 @@
-
 let popupEditProfile = document.querySelector('.popup_js_editprofile'); // получим обьект модальное окно из DOM в переменную
 let editButton = document.querySelector('.profile__button-edit'); // кнопку редактирования и ниже другие элементы
 let closeButtonEditProfile = popupEditProfile.querySelector('.popup__button-close-form');
@@ -9,6 +8,11 @@ let inputName = popupEditProfile.querySelector('.popup__form-input_js_username')
 let inputJob = popupEditProfile.querySelector('.popup__form-input_js_job');
 let formEditProfile = popupEditProfile.querySelector('.popup__form_js_editprofile'); // Находим форму в DOM
 
+let popupImgCard = document.querySelector('.popup_js_imgcard');
+let closeButtonImgCard = popupImgCard.querySelector('.popup__button-close-form');
+let imgCard = popupImgCard.querySelector('.popup__img');
+let nameImgCard = popupImgCard.querySelector('.popup__img-name');
+
 let popupAddCard = document.querySelector('.popup_js_addcard'); // Получаем доступ к элементам формы добавления карточки
 let addButton = document.querySelector('.profile__button-add');
 let closeButtonAddCard = popupAddCard.querySelector('.popup__button-close-form');
@@ -18,6 +22,7 @@ let formAddCard = popupAddCard.querySelector('.popup__form_js_addcard'); // На
 
 const cardTemplate = document.querySelector('#card').content; //находим шаблон карточки на странице
 const elementsGallery = document.querySelector('.elements__gallery'); //контейнер для карточек
+
 
 //массив карточек при первом открытии страницы
 const initialCards = [
@@ -47,6 +52,7 @@ const initialCards = [
   }
 ];
 
+
 //загрузим карточки из массива
 initialCards.forEach(function (item) {
 //наполним по шаблону одну карточку данными из первого элемента массива
@@ -54,19 +60,30 @@ const cardElement = cardTemplate.cloneNode(true);
 cardElement.querySelector('.elements__card-img').src = item.link;
 cardElement.querySelector('.elements__card-img').alt = item.name;
 cardElement.querySelector('.elements__card-title').textContent = item.name;
-
 //вешаем обработчики кнопок карточки до добавлении
+//открытие изображения
+cardElement.querySelector('.elements__card-img').addEventListener('click', function (evt) {
+  const eventTarget = evt.target;
+  imgCard.src = eventTarget.src;
+  imgCard.alt = eventTarget.alt;
+  nameImgCard.textContent = eventTarget.alt;
+  formOpenImgCard();
+  });
+
+//лайк
 cardElement.querySelector('.elements__button-like').addEventListener('click', function (evt) {
   const eventTarget = evt.target;
   eventTarget.classList.toggle('elements__button-like_checked');
   });
 
+//удаление
 cardElement.querySelector('.elements__button-del').addEventListener('click', function (evt) {
   const buttonDelTarget = evt.target;
   const CardsItem = buttonDelTarget.closest('.elements__card');
   CardsItem.remove();
   });
 
+//добавляем на страницу
 elementsGallery.append(cardElement);//добавляем карточку в контейнер-галлерею для отображания на странице
 });
 
@@ -77,12 +94,14 @@ function formCloseEditProfile () {
   popupEditProfile.classList.remove('popup_opened');
 }
 
+
 //открытие редактирования профиля
 function formOpenProfile () {
   popupEditProfile.classList.add('popup_opened');
   inputName.value = nameProfile.textContent; //подставляем значения из профиля в форму
   inputJob.value = jobProfile.textContent;
 }
+
 
 // Обработчик «отправки» формы редактирования профиля
 function formEditProfileSubmitHandler (evt) {
@@ -93,11 +112,13 @@ function formEditProfileSubmitHandler (evt) {
     formCloseEditProfile();
 }
 
+
 //Форма добавления карточки
 //открытие и закрытие формы добавления карточки
 function formOpenCloseAddCard () {
   popupAddCard.classList.toggle('popup_opened');
 }
+
 
 //Обработчик формы добавление карточки
 function formAddCardSubmitHandler (evt) {
@@ -107,12 +128,22 @@ function formAddCardSubmitHandler (evt) {
   cardElementNew.querySelector('.elements__card-img').src = inputLinkCard.value;
   cardElementNew.querySelector('.elements__card-img').alt = inputNameCard.value;
   cardElementNew.querySelector('.elements__card-title').textContent = inputNameCard.value
+
   //вешаем обработчики кнопок при добавлении
+  //открытие изображения в полный экран
+  cardElementNew.querySelector('.elements__card-img').addEventListener('click', function (evt) {
+    const eventTarget = evt.target;
+    imgCard.src = eventTarget.src;
+    imgCard.alt = eventTarget.alt;
+    nameImgCard.textContent = eventTarget.alt;
+    formOpenImgCard();
+    });
+  //лайк
   cardElementNew.querySelector('.elements__button-like').addEventListener('click', function (evt) {
     const eventTarget = evt.target;
     eventTarget.classList.toggle('elements__button-like_checked');
     });
-
+  //удаление
   cardElementNew.querySelector('.elements__button-del').addEventListener('click', function (evt) {
     const buttonDelTarget = evt.target;
     const CardsItem = buttonDelTarget.closest('.elements__card');
@@ -120,12 +151,23 @@ function formAddCardSubmitHandler (evt) {
     });
 
   elementsGallery.prepend(cardElementNew); //добавляем на страницу
-  //очищаем поля
-  inputLinkCard.value = '';
-  inputNameCard.value = '' ;
+  inputLinkCard.value = ''; //очищаем поля
+  inputNameCard.value = '' ; //очищаем поля
 
-  formOpenCloseAddCard();
+  formOpenCloseAddCard(); //закрываем форму добавления карточки
 }
+
+
+//открытие формы просмотра карточки в полный экран
+function formOpenImgCard () {
+  popupImgCard.classList.add('popup_opened');
+}
+
+//закрытие формы просмотра карточки в полный экран
+function formCloseImgCard () {
+  popupImgCard.classList.remove('popup_opened');
+}
+
 
 //обработчики событий
 //окно редактирования профиля
@@ -138,12 +180,5 @@ formAddCard.addEventListener('submit', formAddCardSubmitHandler);
 addButton.addEventListener('click', formOpenCloseAddCard);
 closeButtonAddCard.addEventListener('click', formOpenCloseAddCard);
 
-
-/*
-
-  button.addEventListener('click', function () {
-    const listItem = button.closest('.elements__card');
-    listItem.remove();
-    }
-
-*/
+//окно просмотра карточки в полный экран
+closeButtonImgCard.addEventListener('click', formCloseImgCard);

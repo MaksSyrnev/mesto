@@ -5,7 +5,7 @@
 @import url(./__card-title/elements__card-title.css);
 @import url(./__button-like/elements__button-like.css);
 @import url(./__button-del/elements__button-del.css);
-@import url(./__button-like/__button-like_checked/elements__button-like_checked.css);
+@import url(./__button-like/_checked/elements__button-like_checked.css);
 
 .elements {
   width: 100%;

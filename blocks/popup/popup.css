@@ -4,6 +4,9 @@
 @import url(./__button-close-form/popup__button-close-form.css);
 @import url(./__form-input/popup__form-input.css);
 @import url(./__button-save-form/popup__button-save-form.css);
+@import url(./__img/popup__img.css);
+@import url(./__img-name/popup__img-name.css);
+
 
 
 .popup {

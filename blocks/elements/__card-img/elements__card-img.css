@@ -8,3 +8,7 @@
   object-position: left top;
 
 }
+
+.elements__card-img:hover {
+  cursor: pointer;
+}
