@@ -8,7 +8,6 @@
 @import url(./__img-name/popup__img-name.css);
 
 
-
 .popup {
   display: none;
   justify-content: center;
@@ -19,5 +18,12 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, .5);
+  opacity: 0;
+  transition: opacity .5s linear;
 
+}
+
+
+.popup:hover {
+  opacity: 1;
 }
