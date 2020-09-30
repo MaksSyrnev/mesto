@@ -49,29 +49,28 @@
     <section class="popup popup_js_editprofile">
       <div class="popup__container popup__container_type_form">
         <button type="button" aria-label="закрыть окно" class="popup__button-close-form"></button>
-        <form name="popupeditprofile" method="GET" action="#" class="popup__form popup__form_js_editprofile">
+        <form name="popupeditprofile" method="GET" action="#" class="popup__form popup__form_js_editprofile" novalidate>
           <h2 class="popup__form-title">Редактировать профиль</h2>
-          <input type="text" name="username" required class="popup__form-input popup__form-input_js_username"><!-- Классы с модификатором js не имеют стилей -->
-          <span class="popup__form-input-error"></span>
-          <input type="text" name="job" required class="popup__form-input popup__form-input_js_job">          <!-- Использую для идентификации поля ввода -->
-          <span class="popup__form-input-error"></span>
-          <button type="submit" class="popup__button-save-form">Сохранить</button>
+          <input type="text" name="username" required minlength="2" maxlength="40" class="popup__input popup__input_js_username"><!-- Классы с модификатором js не имеют стилей -->
+          <span class="popup__error"></span>
+          <input type="text" name="job" required minlength="2"maxlength="200" class="popup__input popup__input_js_job">          <!-- Использую для идентификации поля ввода -->
+          <span class="popup__error"></span>
+          <button type="submit" class="popup__button">Сохранить</button>
         </form>
       </div>
     </section>
 
 <!--Добавление новой карточки-->
-
     <section class="popup popup_js_addcard">
       <div class="popup__container popup__container_type_form">
         <button type="button" aria-label="закрыть окно" class="popup__button-close-form"></button>
-        <form name="popupaddcard" method="GET" action="#" class="popup__form popup__form_js_addcard">
+        <form name="popupaddcard" method="GET" action="#" class="popup__form popup__form_js_addcard" novalidate>
           <h2 class="popup__form-title">Новое место</h2>
-          <input type="text" name="namecard" placeholder="Название" required class="popup__form-input popup__form-input_js_namecard"><!-- Классы с модификатором js не имеют стилей -->
-          <span class="popup__form-input-error"></span>
-          <input type="text" name="linkcard" placeholder="Ссылка на картинку" required class="popup__form-input popup__form-input_js_linkcard">          <!-- Использую для идентификации поля ввода -->
-          <span class="popup__form-input-error"></span>
-          <button type="submit" class="popup__button-save-form">Создать</button>
+          <input type="text" name="namecard" placeholder="Название" required minlength="2" maxlength="30" class="popup__input popup__input_js_namecard"><!-- Классы с модификатором js не имеют стилей -->
+          <span class="popup__error"></span>
+          <input type="text" name="linkcard" placeholder="Ссылка на картинку" required class="popup__input popup__input_js_linkcard">          <!-- Использую для идентификации поля ввода -->
+          <span class="popup__error"></span>
+          <button type="submit" class="popup__button">Создать</button>
         </form>
       </div>
     </section>
@@ -87,7 +86,7 @@
 
   </div>
 
-<!--разметка шаблона для добавления карточки-->
+<!--разметка шаблона для добавления карточки на страницу-->
   <template id="card">
     <li class="elements__card">
       <button type="button" aria-label="удалить" class="elements__button-del"></button>
@@ -100,5 +99,6 @@
   </template>
 
 <script src="./scripts/script.js"></script>
+<!--<script src="./scripts/validate.js"></script>-->
 </body>
 </html>
