@@ -6,6 +6,7 @@
 @import url(./__button-save-form/popup__button-save-form.css);
 @import url(./__img/popup__img.css);
 @import url(./__img-name/popup__img-name.css);
+@import url(./__form-input-error/popup__form-input-error.css);
 
 
 .popup {
