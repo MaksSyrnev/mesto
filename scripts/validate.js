@@ -1,6 +1,19 @@
-const enableValidation = () => {
 
-}
+
+//включение валидации всех форм
+const enableValidation = (object) => {
+  const formList = Array.from(document.querySelectorAll(object.formSelector));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', (evt)=> {
+      evt.preventDefault();
+    });
+    /* const fieldsetList = Array.from(formElement.querySelectorAll('.form__set'));
+    fieldsetList.forEach((fieldset)=>{
+      setEventListeners(fieldset);
+    }); */
+
+  });
+};
 
 enableValidation({
   formSelector: '.popup__form',
