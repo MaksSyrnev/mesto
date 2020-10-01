@@ -172,8 +172,7 @@ document.addEventListener('keydown', function (evt) {
 //закрытие по клику на оверлее
 document.addEventListener('click', function (evt) {
   if (evt.target.classList.contains('popup_opened')) {
-    console.log(evt.target);
-    closePopup(evt.target);
+      closePopup(evt.target);
     }
 });
 

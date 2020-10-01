@@ -8,6 +8,10 @@
 }
 
 .popup__button_disabled:hover {
-  cursor: not-allowed;
   background-color: #ffffff;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
