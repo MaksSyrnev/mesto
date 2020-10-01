@@ -194,3 +194,18 @@ const initialCards = [
 initialCards.forEach(function(item) {
   renderCards(item);
 });
+
+//закрытие попапа через Esc
+document.addEventListener('keydown', function (evt) { // навесили слушатель нажатия клавиатуры на весь документ
+  if (evt.key === "Escape") {                         //если нажата Esc
+    const popupList = Array.from(document.querySelectorAll('.popup')); // находим попапы
+    popupList.forEach((popupElement) => {
+      closePopup(popupElement);                        //мощный финал
+      });
+    };
+});
+
+
+// document.addEventListener('click', function () {
+//   console.log('На что ни нажми — я появлюсь');
+// });
