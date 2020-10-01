@@ -32,12 +32,21 @@ const hasInvalidInput = (inputList) => {
   })
 };
 
+//отключаем кнопку сабмит формы
+// const disableSubmitButton = (formElement, objValid) => {
+//   const buttonElement= formElement.querySelector(objValid.submitButtonSelector);
+//   buttonElement.classList.add(objValid.inactiveButtonClass);
+//   buttonElement.setAttribute("disabled", "true");
+// };
+
 //доступность кнопки формы сабмит
 const toggleButtonState = (inputList, buttonElement, objValid) => {
   if (hasInvalidInput(inputList)) {                                      //используем функцию проверки валидности всей формы
     buttonElement.classList.add(objValid.inactiveButtonClass);          //отключаем кнопку - класс - значение из объекта настроек валидности
+    buttonElement.setAttribute("disabled", "true");                     //полностью отключаем через добавление атрибута
     } else {
      buttonElement.classList.remove(objValid.inactiveButtonClass);      //включаем ккнопку
+     buttonElement.removeAttribute("disabled");                         //возвращаем возможность нажатия - удаляем атрибут
     }
 };
 
@@ -60,8 +69,9 @@ const enableValidation = (objValid) => {
   formList.forEach((formElement) => {                                            // для каждой  формы
     formElement.addEventListener('submit', (evt)=> {                             // навешиваем обработчик на submit, который
       evt.preventDefault();                                                      // отключает отправку браузером - поведение по умолчанию
+      //disableSubmitButton(evt.target, objValid);
       });
-    setEventListeners(formElement, objValid);                                    //ставим слушатели на события формы
+  setEventListeners(formElement, objValid);                                      //ставим слушатели на события формы
   });
 }
 

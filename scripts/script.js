@@ -27,31 +27,45 @@ const formAddCard = popupAddCard.querySelector('.popup__form_js_addcard');//фо
 const cardTemplate = document.querySelector('#card').content; //шаблон карточки со страницы
 const elementsGallery = document.querySelector('.elements__gallery'); //контейнер куда постятся карточки
 
+//функции
+//закрытие попапа через Esc
+const closePopupEsc = (evt) => {
+  if (evt.key === "Escape") {                              //если нажата Esc
+    closePopup(document.querySelector('.popup_opened'));   // находим открытый и передаем аргументом в функцию закрытия
+    }
+  };
 
+//закрытие по клику на оверлее
+const closePopupClick = (evt) => {
+  if (evt.target.classList.contains('popup_opened')) {
+      closePopup(evt.target);
+    }
+};
 
-
-//общие функции - переиспользуемые
 //открыть попап
-function openPopup (popup) {
+function openPopup(popup) {
+  document.addEventListener('keydown', closePopupEsc); //ставим слушатель на кнопку esc
+  document.addEventListener('click', closePopupClick); //ставим слушатель на клик
   popup.classList.add('popup_opened');
 }
 
 //закрыть попап
-function closePopup (popup) {
+function closePopup(popup) {
+  document.removeEventListener('keydown', closePopupEsc); //снимаем слушатель на кнопку esc
+  document.removeEventListener('click', closePopupClick); //снимаем слушатель на клик
   popup.classList.remove('popup_opened');
 }
 
-//------------------------------------------------------------------------
-//функциональная часть раздела редактировать профиль
+//раздел редактировать профиль
 //обработчик формы в модальном окне - enter или кнопка сохранить
 function formEditProfileSubmitHandler(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  evt.preventDefault();
   nameProfile.textContent = inputName.value;
   jobProfile.textContent = inputJob.value;
   closePopup(popupEditProfile);
 }
 
-//слушатели нажатия кнопок
+//слушатели
 //открыть окно - кнопка в разделе на странице
 buttonEditProfile.addEventListener('click', function() {
   inputName.value = nameProfile.textContent; //подставляем значения из профиля в форму
@@ -59,17 +73,16 @@ buttonEditProfile.addEventListener('click', function() {
   openPopup(popupEditProfile);
 });
 
-//закрыть окно без сохранения
+//закрыть без сохранения
 buttonCloseEditProfile.addEventListener('click', function() {
   closePopup(popupEditProfile);
 });
 
-//кнопка сохранить в форме или enter
+//кнопка сохранить или enter
 formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
 
-//---------------------------------------------------------------------------
-//функционал раздела карточки
-//функция просмотра карточки в полный экран
+//раздела карточки
+//открыть карточку в полный экран
 function openImgCard(imgTarget) {
   imgCard.src = imgTarget.src;
   imgCard.alt = imgTarget.alt;
@@ -87,7 +100,7 @@ function deleteImgCard(imgTarget) {
   imgTarget.closest('.elements__card').remove();
 }
 
-//сборка карточки
+//собрать новую карточку
 function createCard(item) {
   //клонируем шаблон карточки и выделим нужные элементы карточки в переменные
   const cardElement = cardTemplate.cloneNode(true); //шаблон
@@ -97,11 +110,11 @@ function createCard(item) {
   const cardElementButtonDel = cardElement.querySelector('.elements__button-del');//кнопка удаления
   //присвоение значений
   cardElementImg.src = item.link;//ссылка на изображение
-  cardElementImg.alt = item.name;//подпись обязательного атрибута
+  cardElementImg.alt = item.name;//подпись alt
   cardElementName.textContent = item.name;//название
   //вешаем слушатели на кнопки в карточке !до добавления
   //открытие изображения
-  cardElementImg.addEventListener('click', function(evt){
+  cardElementImg.addEventListener('click', function(evt) {
     openImgCard(evt.target);
     });
   //лайк
@@ -112,18 +125,17 @@ function createCard(item) {
   cardElementButtonDel.addEventListener('click', function(evt) {
     deleteImgCard(evt.target);
     });
-
   return cardElement;
   }
 
 //отрисовка для одной карточки - добавление в начало
 function renderCard(item) {
-  elementsGallery.prepend(createCard(item));
+  elementsGallery.prepend( createCard(item) );
   }
 
 //Отрисовка для массива карточек на странице - добавление в конец
 function renderCards(item) {
-  elementsGallery.append(createCard(item));
+  elementsGallery.append( createCard(item) );
     }
 
 //слушатель
@@ -132,18 +144,20 @@ buttonClosePopupImgCard.addEventListener('click', function(){
   closePopup(popupImgCard);
 });
 
-//форма добавить карточку
+//добавить карточку
 //обработчик формы добавить карточку
 function formAddCardSubmitHandler(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   const newCard = {
-        name: inputNameCard.value,
-        link: inputLinkCard.value
+          name: inputNameCard.value,
+          link: inputLinkCard.value
                   };
   renderCard(newCard);
+  /* popupAddCard.querySelector('.popup__form_js_addcard').reset(); */
   inputLinkCard.value = ''; //очищаем поля
   inputNameCard.value = ''; //очищаем поля
   closePopup(popupAddCard); //закрываем форму добавления карточки
+
 }
 
 //слушатели
@@ -159,22 +173,6 @@ buttonCloseAddCardPopup.addEventListener('click', function() {
 
 //слушатель на форме добавления карточки: кнопка сохранить или enter
 formAddCard.addEventListener('submit', formAddCardSubmitHandler);
-
-//--------------------------------------------------------------------------------------
-//слушатели на документ
-//закрытие попапа через Esc
-document.addEventListener('keydown', function (evt) {
-  if (evt.key === "Escape") {                             //если нажата Esc
-    closePopup(document.querySelector('.popup_opened')); // находим открытый и передаем аргументом в функцию закрытия
-    }
-  });
-
-//закрытие по клику на оверлее
-document.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('popup_opened')) {
-      closePopup(evt.target);
-    }
-});
 
 //работа с начальными данными
 //массив карточек при первом открытии страницы
