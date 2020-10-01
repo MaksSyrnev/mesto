@@ -160,6 +160,22 @@ buttonCloseAddCardPopup.addEventListener('click', function() {
 //слушатель на форме добавления карточки: кнопка сохранить или enter
 formAddCard.addEventListener('submit', formAddCardSubmitHandler);
 
+//--------------------------------------------------------------------------------------
+//слушатели на документ
+//закрытие попапа через Esc
+document.addEventListener('keydown', function (evt) {
+  if (evt.key === "Escape") {                             //если нажата Esc
+    closePopup(document.querySelector('.popup_opened')); // находим открытый и передаем аргументом в функцию закрытия
+    }
+  });
+
+//закрытие по клику на оверлее
+document.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('popup_opened')) {
+    console.log(evt.target);
+    closePopup(evt.target);
+    }
+});
 
 //работа с начальными данными
 //массив карточек при первом открытии страницы
@@ -195,17 +211,4 @@ initialCards.forEach(function(item) {
   renderCards(item);
 });
 
-//закрытие попапа через Esc
-document.addEventListener('keydown', function (evt) { // навесили слушатель нажатия клавиатуры на весь документ
-  if (evt.key === "Escape") {                         //если нажата Esc
-    const popupList = Array.from(document.querySelectorAll('.popup')); // находим попапы
-    popupList.forEach((popupElement) => {
-      closePopup(popupElement);                        //мощный финал
-      });
-    };
-});
 
-
-// document.addEventListener('click', function () {
-//   console.log('На что ни нажми — я появлюсь');
-// });
