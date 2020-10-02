@@ -1,5 +1,4 @@
 //функции валидации данных в формах
-
 //показать ошибку инпута
 const showInputError = (formElement, inputElement, errorMessage, objValid) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);    //по ID инпута находим элемент ошибки
@@ -32,33 +31,37 @@ const hasInvalidInput = (inputList) => {
   })
 };
 
-//отключаем кнопку сабмит формы
-// const disableSubmitButton = (formElement, objValid) => {
-//   const buttonElement= formElement.querySelector(objValid.submitButtonSelector);
-//   buttonElement.classList.add(objValid.inactiveButtonClass);
-//   buttonElement.setAttribute("disabled", "true");
-// };
+//Выкл кнопку сабмит формы
+const disableSubmitButton = (formElement, objValid) => {
+  const buttonElement= formElement.querySelector(objValid.submitButtonSelector);
+  buttonElement.classList.add(objValid.inactiveButtonClass);                      //добросили класс
+  buttonElement.setAttribute("disabled", "true");                                //полностью отключаем через добавление атрибута
+};
 
-//доступность кнопки формы сабмит
-const toggleButtonState = (inputList, buttonElement, objValid) => {
-  if (hasInvalidInput(inputList)) {                                      //используем функцию проверки валидности всей формы
-    buttonElement.classList.add(objValid.inactiveButtonClass);          //отключаем кнопку - класс - значение из объекта настроек валидности
-    buttonElement.setAttribute("disabled", "true");                     //полностью отключаем через добавление атрибута
+//Вкл кнопку
+const ableSubmitButton = (formElement, objValid) => {
+  const buttonElement= formElement.querySelector(objValid.submitButtonSelector);
+  buttonElement.classList.remove(objValid.inactiveButtonClass);                   //убрали класс
+  buttonElement.removeAttribute("disabled");                                      //убрали атрибут
+};
+
+//переключатель доступности кнопки формы сабмит
+const toggleButtonState = (inputList, formElement, objValid) => {
+  if (hasInvalidInput(inputList)) {                                                 //используем функцию проверки валидности всей формы
+    disableSubmitButton(formElement , objValid);
     } else {
-     buttonElement.classList.remove(objValid.inactiveButtonClass);      //включаем ккнопку
-     buttonElement.removeAttribute("disabled");                         //возвращаем возможность нажатия - удаляем атрибут
+    ableSubmitButton(formElement, objValid);
     }
 };
 
 //обработчик для формы - слушатель по событию инпут
 const setEventListeners = (formElement, objValid) => {
   const inputList = Array.from(formElement.querySelectorAll(objValid.inputSelector)); //находим все инпуты в форме
-  const buttonElement= formElement.querySelector(objValid.submitButtonSelector);      //находим кнопку отправки формы
-  toggleButtonState(inputList, buttonElement, objValid);                              //проверить доступность кнопки отправки формы
+  toggleButtonState(inputList, formElement, objValid);                                //проверить доступность кнопки отправки формы
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function() {                               //навешиваем обработчики на событие ввода в инпутах формы
       checkInputValidity(formElement, inputElement, objValid);                        //проверить валидность
-      toggleButtonState(inputList, buttonElement, objValid);                          //проверить доступность кнопки
+      toggleButtonState(inputList, formElement, objValid);                            //проверить доступность кнопки
     });
   });
 };
@@ -69,7 +72,7 @@ const enableValidation = (objValid) => {
   formList.forEach((formElement) => {                                            // для каждой  формы
     formElement.addEventListener('submit', (evt)=> {                             // навешиваем обработчик на submit, который
       evt.preventDefault();                                                      // отключает отправку браузером - поведение по умолчанию
-      //disableSubmitButton(evt.target, objValid);
+      disableSubmitButton(evt.target, objValid);                                 //блочим кнопку формы, после сабмита
       });
   setEventListeners(formElement, objValid);                                      //ставим слушатели на события формы
   });

@@ -9,6 +9,9 @@ const formEditProfile = popupEditProfile.querySelector('.popup__form_js_editprof
 const inputName = popupEditProfile.querySelector('.popup__input_js_username'); //поле ввода имени
 const inputJob = popupEditProfile.querySelector('.popup__input_js_job'); // поле ввода профессии
 
+inputName.value = nameProfile.textContent;    // присвоение начальных значений для попапа Профиль
+inputJob.value = jobProfile.textContent;
+
 //попап просмотра карточки и его элементы
 const popupImgCard = document.querySelector('.popup_js_imgcard');//модальное окно просмотра
 const buttonClosePopupImgCard = popupImgCard.querySelector('.popup__button-close-form');//кнопка закрытия
@@ -44,15 +47,15 @@ const closePopupClick = (evt) => {
 
 //открыть попап
 function openPopup(popup) {
-  document.addEventListener('keydown', closePopupEsc); //ставим слушатель на кнопку esc
-  document.addEventListener('click', closePopupClick); //ставим слушатель на клик
+  document.addEventListener('keydown', closePopupEsc);       //ставим слушатель на кнопку esc
+  document.addEventListener('click', closePopupClick);       //ставим слушатель на клик
   popup.classList.add('popup_opened');
 }
 
 //закрыть попап
 function closePopup(popup) {
-  document.removeEventListener('keydown', closePopupEsc); //снимаем слушатель на кнопку esc
-  document.removeEventListener('click', closePopupClick); //снимаем слушатель на клик
+  document.removeEventListener('keydown', closePopupEsc);    //снимаем слушатель на кнопку esc
+  document.removeEventListener('click', closePopupClick);    //снимаем слушатель на клик
   popup.classList.remove('popup_opened');
 }
 
@@ -68,8 +71,8 @@ function formEditProfileSubmitHandler(evt) {
 //слушатели
 //открыть окно - кнопка в разделе на странице
 buttonEditProfile.addEventListener('click', function() {
-  inputName.value = nameProfile.textContent; //подставляем значения из профиля в форму
-  inputJob.value = jobProfile.textContent;
+  /* inputName.value = nameProfile.textContent; //подставляем значения из профиля в форму
+  inputJob.value = jobProfile.textContent; */
   openPopup(popupEditProfile);
 });
 
@@ -136,7 +139,7 @@ function renderCard(item) {
 //Отрисовка для массива карточек на странице - добавление в конец
 function renderCards(item) {
   elementsGallery.append( createCard(item) );
-    }
+  }
 
 //слушатель
 //закрыть окно просмотра карточки - кнопка
@@ -147,17 +150,14 @@ buttonClosePopupImgCard.addEventListener('click', function(){
 //добавить карточку
 //обработчик формы добавить карточку
 function formAddCardSubmitHandler(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  evt.preventDefault();
   const newCard = {
           name: inputNameCard.value,
           link: inputLinkCard.value
                   };
   renderCard(newCard);
-  /* popupAddCard.querySelector('.popup__form_js_addcard').reset(); */
-  inputLinkCard.value = ''; //очищаем поля
-  inputNameCard.value = ''; //очищаем поля
-  closePopup(popupAddCard); //закрываем форму добавления карточки
-
+  popupAddCard.querySelector('.popup__form_js_addcard').reset(); //очищаем поля
+  closePopup(popupAddCard);                                      //закрываем форму добавления карточки
 }
 
 //слушатели
