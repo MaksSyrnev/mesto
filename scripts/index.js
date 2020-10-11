@@ -71,6 +71,8 @@ function formEditProfileSubmitHandler(evt) {
 }
 
 //слушатели
+//document.addEventListener('keydown', closePopupEsc);       //ставим слушатель на кнопку esc
+//document.addEventListener('click', closePopupClick);
 //открыть окно - кнопка в разделе на странице
 buttonEditProfile.addEventListener('click', function () {
   openPopup(popupEditProfile);
@@ -85,13 +87,13 @@ buttonCloseEditProfile.addEventListener('click', function () {
 formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
 
 //раздела карточки
-//открыть карточку в полный экран
-function openImgCard(imgTarget) {
-  imgCard.src = imgTarget.src;
-  imgCard.alt = imgTarget.alt;
-  nameImgCard.textContent = imgTarget.alt;
-  openPopup(popupImgCard);
-}
+//открыть карточку в полный экран imgTarget
+// const openImgCard = (name, link) => {
+//   imgCard.src = link;
+//   imgCard.alt = name;
+//   nameImgCard.textContent = name;
+//   openPopup(popupImgCard);
+// }
 
 //слушатель
 //закрыть окно просмотра карточки - кнопка
