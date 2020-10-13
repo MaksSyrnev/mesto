@@ -1,4 +1,5 @@
 import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 //Обьявление переменных
 //Раздел профиль: кнопка открытия окна на странице + попап профиля с кнопками
@@ -164,3 +165,12 @@ initialCards.forEach(function (item) {
 });
 
 
+//настройки валидации по всем формам в документе
+const configValidate = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
