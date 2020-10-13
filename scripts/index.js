@@ -14,12 +14,6 @@ const inputJob = popupEditProfile.querySelector('.popup__input_js_job'); // по
 inputName.value = nameProfile.textContent;    // присвоение начальных значений для попапа Профиль
 inputJob.value = jobProfile.textContent;
 
-//попап просмотра карточки и его элементы
-const popupImgCard = document.querySelector('.popup_js_imgcard');//модальное окно просмотра
-const buttonClosePopupImgCard = popupImgCard.querySelector('.popup__button-close-form');//кнопка закрытия
-const imgCard = popupImgCard.querySelector('.popup__img');//элемент вывода окна - изображение
-const nameImgCard = popupImgCard.querySelector('.popup__img-name');//элемент вывода окна - подпись карточки
-
 //добавление новой карточки
 const buttonAddCard = document.querySelector('.profile__button-add'); //кнопка добавить на странице
 const popupAddCard = document.querySelector('.popup_js_addcard'); //окно добавления карточки
@@ -28,15 +22,20 @@ const inputNameCard = popupAddCard.querySelector('.popup__input_js_namecard');//
 const inputLinkCard = popupAddCard.querySelector('.popup__input_js_linkcard');//поле ввода ссылки на фото
 const formAddCard = popupAddCard.querySelector('.popup__form_js_addcard');//форма данных карточки
 
+//попап просмотра карточки и его элементы
+const popupImgCard = document.querySelector('.popup_js_imgcard');//модальное окно просмотра
+const buttonClosePopupImgCard = popupImgCard.querySelector('.popup__button-close-form');//кнопка закрытия
+const imgCard = popupImgCard.querySelector('.popup__img');//элемент вывода окна - изображение
+const nameImgCard = popupImgCard.querySelector('.popup__img-name');//элемент вывода окна - подпись карточки
+
 //элементы страницы для работы с карточками
-//const cardTemplate = document.querySelector('#card').content; //шаблон карточки со страницы
 const elementsGallery = document.querySelector('.elements__gallery'); //контейнер куда постятся карточки
 
-//функции
+//общий функционал
 //закрытие попапа через Esc
 const closePopupEsc = (evt) => {
-  if (evt.key === "Escape") {                              //если нажата Esc
-    closePopup(document.querySelector('.popup_opened'));   // находим открытый и передаем аргументом в функцию закрытия
+  if (evt.key === "Escape") {
+    closePopup(document.querySelector('.popup_opened'));
   }
 };
 
@@ -49,20 +48,28 @@ const closePopupClick = (evt) => {
 
 //открыть попап
 function openPopup(popup) {
-  document.addEventListener('keydown', closePopupEsc);       //ставим слушатель на кнопку esc
-  document.addEventListener('click', closePopupClick);       //ставим слушатель на клик
+  document.addEventListener('keydown', closePopupEsc);
+  document.addEventListener('click', closePopupClick);
   popup.classList.add('popup_opened');
 }
 
 //закрыть попап
 function closePopup(popup) {
-  document.removeEventListener('keydown', closePopupEsc);    //снимаем слушатель на кнопку esc
-  document.removeEventListener('click', closePopupClick);    //снимаем слушатель на клик
+  document.removeEventListener('keydown', closePopupEsc);
+  document.removeEventListener('click', closePopupClick);
   popup.classList.remove('popup_opened');
 }
 
-//раздел редактировать профиль
-//обработчик формы в модальном окне - enter или кнопка сохранить
+//обработчики
+//просмотр карточки в полный экран imgTarget
+const openImgCard = (evt) => {
+  imgCard.src = evt.target.src;
+  imgCard.alt = evt.target.alt;
+  nameImgCard.textContent = evt.target.alt;
+  openPopup(popupImgCard);
+}
+
+//форма редактировать профиль - enter или кнопка сохранить
 function formEditProfileSubmitHandler(evt) {
   evt.preventDefault();
   nameProfile.textContent = inputName.value;
@@ -70,37 +77,47 @@ function formEditProfileSubmitHandler(evt) {
   closePopup(popupEditProfile);
 }
 
+//форма добавить карточку
+function formAddCardSubmitHandler(evt) {
+  evt.preventDefault();
+  const newCard = {
+    name: inputNameCard.value,
+    link: inputLinkCard.value
+  };
+  renderCard(newCard);
+  popupAddCard.querySelector('.popup__form_js_addcard').reset();
+  closePopup(popupAddCard);
+}
+
 //слушатели
-//document.addEventListener('keydown', closePopupEsc);       //ставим слушатель на кнопку esc
-//document.addEventListener('click', closePopupClick);
-//открыть окно - кнопка в разделе на странице
+//добавить карточку
+buttonAddCard.addEventListener('click', function () {
+  openPopup(popupAddCard);
+});
+
+buttonCloseAddCardPopup.addEventListener('click', function () {
+  closePopup(popupAddCard);
+});
+
+formAddCard.addEventListener('submit', formAddCardSubmitHandler);
+
+//редактировать профиль
 buttonEditProfile.addEventListener('click', function () {
   openPopup(popupEditProfile);
 });
 
-//закрыть без сохранения
 buttonCloseEditProfile.addEventListener('click', function () {
   closePopup(popupEditProfile);
 });
 
-//кнопка сохранить или enter
 formEditProfile.addEventListener('submit', formEditProfileSubmitHandler);
 
-//раздела карточки
-//открыть карточку в полный экран imgTarget
-// const openImgCard = (name, link) => {
-//   imgCard.src = link;
-//   imgCard.alt = name;
-//   nameImgCard.textContent = name;
-//   openPopup(popupImgCard);
-// }
-
-//слушатель
-//закрыть окно просмотра карточки - кнопка
+//просмотр карточки
 buttonClosePopupImgCard.addEventListener('click', function () {
   closePopup(popupImgCard);
 });
 
+//работа с данными
 //отрисовка для одной карточки - добавление в начало
 function renderCard(item) {
   const card = new Card(item, '#card');
@@ -109,38 +126,10 @@ function renderCard(item) {
 
 //Отрисовка для массива карточек на странице - добавление в конец
 function renderCards(item) {
-  const card = new Card(item, '#card');
+  const card = new Card(item, '#card', openImgCard);
   elementsGallery.append(card.createCard());
 }
 
-//добавить карточку
-//обработчик формы добавить карточку
-function formAddCardSubmitHandler(evt) {
-  evt.preventDefault();
-  const newCard = {
-    name: inputNameCard.value,
-    link: inputLinkCard.value
-  };
-  renderCard(newCard);
-  popupAddCard.querySelector('.popup__form_js_addcard').reset(); //очищаем поля
-  closePopup(popupAddCard);                                      //закрываем форму добавления карточки
-}
-
-//слушатели
-//открыть окно -добавить карточку- кнопка
-buttonAddCard.addEventListener('click', function () {
-  openPopup(popupAddCard);
-});
-
-//закрыть окно -добавить карточку- кнопка
-buttonCloseAddCardPopup.addEventListener('click', function () {
-  closePopup(popupAddCard);
-});
-
-//слушатель на форме добавления карточки: кнопка сохранить или enter
-formAddCard.addEventListener('submit', formAddCardSubmitHandler);
-
-//работа с начальными данными
 //массив карточек при первом открытии страницы
 const initialCards = [
   {
