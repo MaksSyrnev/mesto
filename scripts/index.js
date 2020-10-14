@@ -174,3 +174,6 @@ const configValidate = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 };
+
+const editForm = new FormValidator(configValidate, '.popup__form_js_editprofile');
+editForm.enableValidation();

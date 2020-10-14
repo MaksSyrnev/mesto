@@ -9,27 +9,27 @@ class FormValidator {
     this._formId = formId;
   }
 
-  _showInputError(formElement, inputElement, errorMessage, objValid) {
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);    //по ID инпута находим элемент ошибки
-    inputElement.classList.add(objValid.inputErrorClass);                           //добавляем класс полю
+  _showInputError(inputElement, errorMessage) {
+    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);    //по ID инпута находим элемент ошибки
+    inputElement.classList.add(this._inputErrorClass);                           //добавляем класс полю
     errorElement.textContent = errorMessage;                                        //присваем текст ошибки
-    errorElement.classList.add(objValid.errorClass);                                //показываем ошибку
+    errorElement.classList.add(this._errorClass);                                //показываем ошибку
   };
 
   //убрать ошибку инпута
-  _hideInputError(formElement, inputElement, objValid) {
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);     //по ID инпута находим элемент ошибки
-    inputElement.classList.remove(objValid.inputErrorClass);                         //убрали класс подсветки невалидного инпута
-    errorElement.classList.remove(objValid.errorClass);                              //убрали видимость ошибки
+  _hideInputError(inputElement) {
+    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);     //по ID инпута находим элемент ошибки
+    inputElement.classList.remove(this._inputErrorClass);                         //убрали класс подсветки невалидного инпута
+    errorElement.classList.remove(this._errorClass);                              //убрали видимость ошибки
     errorElement.textContent = 'Заполнитель';                                        //Присвоили содержанию ошибки текст заполнитель.
   };                                                                                 //Он не виден, нужен чтоб не схлопнулся спан и сохранился дизайн формы в размерах
 
   //валидация инпута. условия из разметки, проверяет браузер с помощью объекта validity
-  _checkInputValidity(formElement, inputElement, objValid) {
+  _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
-      showInputError(formElement, inputElement, inputElement.validationMessage, objValid);  //вызов показать ошибку,
+      showInputError(inputElement, inputElement.validationMessage);  //вызов показать ошибку,
     } else {                                                                                //как аргумент отправляем бразуерное сообщение об ошибке
-      hideInputError(formElement, inputElement, objValid);                                  //вызвать скрыть ошибку
+      hideInputError(inputElement);                                  //вызвать скрыть ошибку
     }
   };
 
@@ -41,48 +41,49 @@ class FormValidator {
   };
 
   //Выкл кнопку сабмит формы
-  _disableSubmitButton(formElement, objValid) {
-    const buttonElement = formElement.querySelector(objValid.submitButtonSelector);
-    buttonElement.classList.add(objValid.inactiveButtonClass);                      //добросили класс
+  _disableSubmitButton() {
+    const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+    buttonElement.classList.add(this._inactiveButtonClass);                      //добросили класс
     buttonElement.setAttribute("disabled", "true");                                //полностью отключаем через добавление атрибута
   };
 
   //Вкл кнопку
-  _ableSubmitButton(formElement, objValid) {
-    const buttonElement = formElement.querySelector(objValid.submitButtonSelector);
-    buttonElement.classList.remove(objValid.inactiveButtonClass);                   //убрали класс
-    buttonElement.removeAttribute("disabled");                                      //убрали атрибут
+  _ableSubmitButton() {
+    const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+    buttonElement.classList.remove(this._inactiveButtonClass);
+    buttonElement.removeAttribute("disabled");
   };
 
   //переключатель доступности кнопки формы сабмит
-  _toggleButtonState(inputList, formElement) {
-    if (hasInvalidInput(inputList)) {                                                 //используем функцию проверки валидности всей формы
-      disableSubmitButton(formElement, objValid);
+  _toggleButtonState(inputList) {
+    if (this._hasInvalidInput(inputList)) {
+      this._disableSubmitButton(this._formElement);
     } else {
-      ableSubmitButton(formElement, objValid);
+      this._ableSubmitButton(this._formElement);
     }
   };
 
   //обработчик для формы - слушатель по событию инпут
-  _setEventListeners(formElement) {
-    const inputList = Array.from(formElement.querySelectorAll(this._inputSelector));
-    this._toggleButtonState(inputList, formElement);
+  _setEventListeners() {
+    const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    this._toggleButtonState(inputList, this._formElement);
     inputList.forEach((inputElement) => {
-      inputElement.addEventListener('input', function () {
-        this._checkInputValidity(formElement, inputElement);
-        this._toggleButtonState(inputList, formElement);
+      inputElement.addEventListener('input', () => {
+        this._checkInputValidity(inputElement);
+        //this._toggleButtonState(inputList);
       });
     });
   };
 
   //включение валидации всех форм
   enableValidation() {
-    const formElement = document.querySelectorAll(this._formId);
-    formElement.addEventListener('submit', (evt) => {
+    this._formElement = document
+      .querySelector(this._formId);
+    this._formElement.addEventListener('submit', () => {
       evt.preventDefault();
-      this._disableSubmitButton(evt.target);
+      this._disableSubmitButton();
     });
-    this._setEventListeners(formElement);
+    //this._setEventListeners(this._formElement);
   }
 
 }
