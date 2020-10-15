@@ -9,33 +9,34 @@ class FormValidator {
     this._formId = formId;
   }
 
+  //показать ошибку по инпуту
   _showInputError(inputElement, errorMessage) {
-    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);    //по ID инпута находим элемент ошибки
-    inputElement.classList.add(this._inputErrorClass);                           //добавляем класс полю
-    errorElement.textContent = errorMessage;                                        //присваем текст ошибки
-    errorElement.classList.add(this._errorClass);                                //показываем ошибку
+    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.add(this._inputErrorClass);
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add(this._errorClass);
   };
 
   //убрать ошибку инпута
   _hideInputError(inputElement) {
-    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);     //по ID инпута находим элемент ошибки
-    inputElement.classList.remove(this._inputErrorClass);                         //убрали класс подсветки невалидного инпута
-    errorElement.classList.remove(this._errorClass);                              //убрали видимость ошибки
-    errorElement.textContent = 'Заполнитель';                                        //Присвоили содержанию ошибки текст заполнитель.
-  };                                                                                 //Он не виден, нужен чтоб не схлопнулся спан и сохранился дизайн формы в размерах
+    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.remove(this._inputErrorClass);
+    errorElement.classList.remove(this._errorClass);
+    errorElement.textContent = 'Заполнитель';
+  };
 
-  //валидация инпута. условия из разметки, проверяет браузер с помощью объекта validity
+  //валидация инпута. используем validity
   _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
-      showInputError(inputElement, inputElement.validationMessage);  //вызов показать ошибку,
-    } else {                                                                                //как аргумент отправляем бразуерное сообщение об ошибке
-      hideInputError(inputElement);                                  //вызвать скрыть ошибку
+      this._showInputError(inputElement, inputElement.validationMessage);
+    } else {
+      this._hideInputError(inputElement);
     }
   };
 
-  //валидность формы - есть невалидные инпуты - возврат Да/нет
-  _hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
+  //невалидные инпуты - возврат Да/нет
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     })
   };
@@ -43,8 +44,8 @@ class FormValidator {
   //Выкл кнопку сабмит формы
   _disableSubmitButton() {
     const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
-    buttonElement.classList.add(this._inactiveButtonClass);                      //добросили класс
-    buttonElement.setAttribute("disabled", "true");                                //полностью отключаем через добавление атрибута
+    buttonElement.classList.add(this._inactiveButtonClass);
+    buttonElement.setAttribute("disabled", "true");
   };
 
   //Вкл кнопку
@@ -55,8 +56,8 @@ class FormValidator {
   };
 
   //переключатель доступности кнопки формы сабмит
-  _toggleButtonState(inputList) {
-    if (this._hasInvalidInput(inputList)) {
+  _toggleButtonState() {
+    if (this._hasInvalidInput(this._inputList)) {
       this._disableSubmitButton(this._formElement);
     } else {
       this._ableSubmitButton(this._formElement);
@@ -65,37 +66,26 @@ class FormValidator {
 
   //обработчик для формы - слушатель по событию инпут
   _setEventListeners() {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-    this._toggleButtonState(inputList, this._formElement);
-    inputList.forEach((inputElement) => {
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        //this._toggleButtonState(inputList);
+        this._toggleButtonState();
       });
     });
   };
 
   //включение валидации всех форм
   enableValidation() {
-    this._formElement = document
-      .querySelector(this._formId);
+    this._formElement = document.querySelector(this._formId);
     this._formElement.addEventListener('submit', () => {
       evt.preventDefault();
       this._disableSubmitButton();
     });
-    //this._setEventListeners(this._formElement);
+    this._setEventListeners();
   }
 
 }
 
 export default FormValidator;
-
-//настройки валидации по всем формам в документе
-// const configValidate = {
-//   formSelector: '.popup__form',
-//   inputSelector: '.popup__input',
-//   submitButtonSelector: '.popup__button',
-//   inactiveButtonClass: 'popup__button_disabled',
-//   inputErrorClass: 'popup__input_type_error',
-//   errorClass: 'popup__error_visible'
-// };

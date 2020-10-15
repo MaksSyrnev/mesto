@@ -177,3 +177,6 @@ const configValidate = {
 
 const editForm = new FormValidator(configValidate, '.popup__form_js_editprofile');
 editForm.enableValidation();
+
+const addForm = new FormValidator(configValidate, '.popup__form_js_addcard');
+addForm.enableValidation();
