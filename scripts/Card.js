@@ -1,9 +1,10 @@
+import { openImgCard } from './utils.js'
 class Card {
-  constructor(item, cardSelector, openImgCard) {
+  constructor(item, cardSelector) {
     this._name = item.name;
     this._link = item.link;
     this._cardSelector = cardSelector;
-    this._openImgCard = openImgCard;
+    //this._openImgCard = openImgCard;
   }
 
   _getTemplate() {
@@ -16,12 +17,13 @@ class Card {
 
   createCard() {
     this._elementCard = this._getTemplate();
+    this._imgCard = this._elementCard.querySelector('.elements__card-img');
+    this._titleCard = this._elementCard.querySelector('.elements__card-title');
     this._setEventListeners();
 
-    this._elementCard.querySelector('.elements__card-img').src = this._link;
-    this._elementCard.querySelector('.elements__card-title').textContent = this._name;
-    this._elementCard.querySelector('.elements__card-img').alt = this._name;
-
+    this._imgCard.src = this._link;
+    this._imgCard.alt = this._name;
+    this._titleCard.textContent = this._name;
     return this._elementCard;
   }
 
@@ -36,7 +38,7 @@ class Card {
   _setEventListeners() {
     this._elementCard.querySelector('.elements__button-like').addEventListener('click', () => this._likeCard());
     this._elementCard.querySelector('.elements__button-del').addEventListener('click', () => this._deleteCard());
-    this._elementCard.querySelector('.elements__card-img').addEventListener('click', this._openImgCard);
+    this._elementCard.querySelector('.elements__card-img').addEventListener('click', openImgCard);
   }
 
 }

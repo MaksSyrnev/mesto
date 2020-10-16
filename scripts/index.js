@@ -1,7 +1,14 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import { openPopup, closePopup, openImgCard } from './utils.js'
 
 //Обьявление переменных
+//попап просмотра карточки и его элементы
+export const popupImgCard = document.querySelector('.popup_js_imgcard');//модальное окно просмотра
+export const imgCard = popupImgCard.querySelector('.popup__img');//элемент вывода окна - изображение
+export const nameImgCard = popupImgCard.querySelector('.popup__img-name');//элемент вывода окна - подпись карточки
+const buttonClosePopupImgCard = popupImgCard.querySelector('.popup__button-close-form');//кнопка закрытия
+
 //Раздел профиль: кнопка открытия окна на странице + попап профиля с кнопками
 const buttonEditProfile = document.querySelector('.profile__button-edit'); // кнопка открытия редактирования со страницы
 const nameProfile = document.querySelector('.profile__title'); // вывод на странице - имя
@@ -23,53 +30,10 @@ const inputNameCard = popupAddCard.querySelector('.popup__input_js_namecard');//
 const inputLinkCard = popupAddCard.querySelector('.popup__input_js_linkcard');//поле ввода ссылки на фото
 const formAddCard = popupAddCard.querySelector('.popup__form_js_addcard');//форма данных карточки
 
-//попап просмотра карточки и его элементы
-const popupImgCard = document.querySelector('.popup_js_imgcard');//модальное окно просмотра
-const buttonClosePopupImgCard = popupImgCard.querySelector('.popup__button-close-form');//кнопка закрытия
-const imgCard = popupImgCard.querySelector('.popup__img');//элемент вывода окна - изображение
-const nameImgCard = popupImgCard.querySelector('.popup__img-name');//элемент вывода окна - подпись карточки
-
 //элементы страницы для работы с карточками
 const elementsGallery = document.querySelector('.elements__gallery'); //контейнер куда постятся карточки
 
-//общий функционал
-//закрытие попапа через Esc
-const closePopupEsc = (evt) => {
-  if (evt.key === "Escape") {
-    closePopup(document.querySelector('.popup_opened'));
-  }
-};
-
-//закрытие по клику на оверлее
-const closePopupClick = (evt) => {
-  if (evt.target.classList.contains('popup_opened')) {
-    closePopup(evt.target);
-  }
-};
-
-//открыть попап
-function openPopup(popup) {
-  document.addEventListener('keydown', closePopupEsc);
-  document.addEventListener('click', closePopupClick);
-  popup.classList.add('popup_opened');
-}
-
-//закрыть попап
-function closePopup(popup) {
-  document.removeEventListener('keydown', closePopupEsc);
-  document.removeEventListener('click', closePopupClick);
-  popup.classList.remove('popup_opened');
-}
-
 //обработчики
-//просмотр карточки в полный экран imgTarget
-const openImgCard = (evt) => {
-  imgCard.src = evt.target.src;
-  imgCard.alt = evt.target.alt;
-  nameImgCard.textContent = evt.target.alt;
-  openPopup(popupImgCard);
-}
-
 //форма редактировать профиль - enter или кнопка сохранить
 function formEditProfileSubmitHandler(evt) {
   evt.preventDefault();
@@ -165,7 +129,7 @@ initialCards.forEach(function (item) {
 });
 
 
-//настройки валидации по всем формам в документе
+//объект настроек валидации по всем формам в документе
 const configValidate = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
