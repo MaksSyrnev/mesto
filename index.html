@@ -70,11 +70,11 @@
         <button type="button" aria-label="закрыть окно" class="popup__button-close-form"></button>
         <form name="popupaddcard" method="GET" action="#" class="popup__form popup__form_js_addcard" novalidate>
           <h2 class="popup__form-title">Новое место</h2>
-          <input type="text" name="namecard" placeholder="Название" class="popup__input popup__input_js_namecard"
+          <input type="text" name="name" placeholder="Название" class="popup__input popup__input_js_namecard"
             id="namecard-input" minlength="2" maxlength="30" required><!-- Классы с модификатором js не имеют стилей -->
           <span class="popup__error" id="namecard-input-error">Заполнитель</span>
-          <input type="url" name="linkcard" placeholder="Ссылка на картинку"
-            class="popup__input popup__input_js_linkcard" id="linkcard-input" required>
+          <input type="url" name="link" placeholder="Ссылка на картинку" class="popup__input popup__input_js_linkcard"
+            id="linkcard-input" required>
           <!-- Использую для идентификации поля ввода -->
           <span class="popup__error" id="linkcard-input-error">Заполнитель</span>
           <button type="submit" class="popup__button">Создать</button>
@@ -105,7 +105,7 @@
     </li>
   </template>
   <!--подключение js-->
-  <script src="./scripts/index.js" type="module"></script>
+  <script src="./pages/index.js" type="module"></script>
 </body>
 
 </html>

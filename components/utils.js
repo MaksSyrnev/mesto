@@ -1,4 +1,4 @@
-import { popupImgCard, imgCard, nameImgCard } from './index.js'
+import { popupImgCard, imgCard, nameImgCard } from '../pages/index.js'
 
 //общий функционал
 //закрытие попапа через Esc

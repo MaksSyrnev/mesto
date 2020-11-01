@@ -1,10 +1,11 @@
-import { openImgCard } from './utils.js'
+//import { openImgCard } from './utils.js'
 class Card {
-  constructor(item, cardSelector) {
+  constructor(item, cardSelector, handleCardClick) {
     this._name = item.name;
     this._link = item.link;
     this._cardSelector = cardSelector;
-    //this._openImgCard = openImgCard;
+    this._handleCardClick = handleCardClick;
+
   }
 
   _getTemplate() {
@@ -38,7 +39,7 @@ class Card {
   _setEventListeners() {
     this._elementCard.querySelector('.elements__button-like').addEventListener('click', () => this._likeCard());
     this._elementCard.querySelector('.elements__button-del').addEventListener('click', () => this._deleteCard());
-    this._elementCard.querySelector('.elements__card-img').addEventListener('click', openImgCard);
+    this._elementCard.querySelector('.elements__card-img').addEventListener('click', this._handleCardClick);
   }
 
 }
