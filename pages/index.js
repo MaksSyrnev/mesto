@@ -6,12 +6,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 
-import { initialCards, configValidate } from '../components/constants.js';
-
-const buttonEditProfile = document.querySelector('.profile__button-edit'); // кнопка открытия редактирования со страницы
-const inputName = document.querySelector('.popup__input_js_username'); //поле ввода имени
-const inputJob = document.querySelector('.popup__input_js_job'); // поле ввода профессии
-const buttonAddCard = document.querySelector('.profile__button-add'); //кнопка добавить на странице
+import { initialCards, configValidate, buttonEditProfile, buttonAddCard, inputName, inputJob } from '../components/constants.js';
 
 //обработчики
 //форма редактировать профиль - enter или кнопка сохранить
