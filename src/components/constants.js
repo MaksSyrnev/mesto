@@ -34,7 +34,6 @@ export const configValidate = {
   errorClass: 'popup__error_visible'
 };
 
-
 export const buttonEditProfile = document.querySelector('.profile__button-edit'); // кнопка открытия редактирования со страницы
 export const inputName = document.querySelector('.popup__input_js_username'); //поле ввода имени
 export const inputJob = document.querySelector('.popup__input_js_job'); // поле ввода профессии
