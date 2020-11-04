@@ -1,4 +1,3 @@
-//import { openImgCard } from './utils.js'
 class Card {
   constructor(item, cardSelector, handleCardClick) {
     this._name = item.name;

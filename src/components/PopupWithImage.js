@@ -13,7 +13,7 @@ export default class PopupWithImage extends Popup {
     imgCard.alt = evt.target.alt;
     nameImgCard.textContent = evt.target.alt;
     super.setEventListeners();
-    this._popup.classList.add('popup_opened');
+    super.open();
 
   }
 }

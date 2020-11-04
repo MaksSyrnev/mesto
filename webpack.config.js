@@ -48,5 +48,8 @@ module.exports = {
             template: './src/index.html' // путь к файлу index.html
         }),
         new MiniCssExtractPlugin()
-    ]
+    ],
+    devServer: {
+        open: true
+    }
 }

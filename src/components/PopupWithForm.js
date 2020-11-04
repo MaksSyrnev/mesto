@@ -5,6 +5,7 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._handleSubmitForm = handleSubmitForm;
 
+
   }
 
   _getInputValues() {  //собирает данные всех полей формы
@@ -17,11 +18,19 @@ export default class PopupWithForm extends Popup {
   setEventListeners() {  //должен добавлять обработчик клика иконке закрытия и добавлять обработчик сабмита формы.
     super.setEventListeners();
     this._formElement = this._popup.querySelector('.popup__form');
-    this._formElement.addEventListener('submit', this._handleSubmitForm);
+    this._formElement.addEventListener('submit', () => {
+      this.formValues = this._getInputValues();
+      this._handleSubmitForm(this.formValues);
+    });
   }
 
   close() {  //Перезаписывает родительский метод - при закрытии попапа форма должна ещё и сбрасываться.
     this._formElement.reset();
+    // _disableSubmitButton() {
+    const buttonElement = this._formElement.querySelector('.popup__button');
+    buttonElement.classList.add('popup__button_disabled');
+    buttonElement.setAttribute("disabled", "true");
+    //}; */
     super.close();
   }
 }

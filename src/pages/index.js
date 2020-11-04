@@ -12,33 +12,28 @@ import { initialCards, configValidate, buttonEditProfile, buttonAddCard, inputNa
 
 //обработчики
 //форма редактировать профиль - enter или кнопка сохранить
-const handleEditCardFormSubmit = (evt) => {
-  evt.preventDefault();
-  const inputsUserInfo = popupEditProfile._getInputValues();
-  userInfo.setUserInfo(inputsUserInfo);
+const handleEditCardFormSubmit = (formValues) => {
+  userInfo.setUserInfo(formValues);
   popupEditProfile.close();
 }
 
 //обработчик формы добавить карточку
-const handleAddCardFormSubmit = (evt) => {
-  evt.preventDefault();
-  const inputsCardInfo = popupAddCard._getInputValues();
-  const newElementCard = renderer(inputsCardInfo);
-  CardList.addItem(newElementCard);
+const handleAddCardFormSubmit = (formValues) => {
+  const newElementCard = renderCardElement(formValues);
+  cardList.addItem(newElementCard);
   popupAddCard.close();
 }
 
 //инициализация классов
 const popupEditProfile = new PopupWithForm('.popup_js_editprofile', handleEditCardFormSubmit);
 const userInfo = new UserInfo({ nameSelector: '.profile__title', jobSelector: '.profile__subtitle' });
-const inputValue = userInfo.getUserInfo();
-inputName.value = inputValue.name;
-inputJob.value = inputValue.job;
+const popupWithImage = new PopupWithImage('.popup_js_imgcard');
 const popupAddCard = new PopupWithForm('.popup_js_addcard', handleAddCardFormSubmit);
 
 //слушатель кнопки попапа редактировать профиль
 buttonEditProfile.addEventListener('click', function () {
   popupEditProfile.open();
+  const inputValue = userInfo.getUserInfo();
   inputName.value = inputValue.name;
   inputJob.value = inputValue.job;
 });
@@ -50,12 +45,11 @@ buttonAddCard.addEventListener('click', function () {
 
 //колбэк для просмотр карточки
 const handleCardClick = (evt) => {
-  const popupWithImage = new PopupWithImage('.popup_js_imgcard');
   popupWithImage.open(evt);
 }
 
 //логика отрисовки элемента карточка
-const renderer = (item) => {
+const renderCardElement = (item) => {
   const card = new Card(item, '#card', handleCardClick);
   const cardElement = card.createCard();
   return cardElement;
@@ -63,8 +57,8 @@ const renderer = (item) => {
 
 //работа с данными - инициализация
 //добавляем в разметку стартовый набор карточек из массива
-const CardList = new Section({ items: initialCards, renderer }, '.elements__gallery');
-CardList.renderItems();
+const cardList = new Section({ items: initialCards, renderer: renderCardElement }, '.elements__gallery');
+cardList.renderItems();
 
 //включаем валидацию форм в документе
 const editForm = new FormValidator(configValidate, '.popup__form_js_editprofile');
