@@ -79,7 +79,6 @@ class FormValidator {
   //включение валидации всех форм
   enableValidation() {
     this._formElement = document.querySelector(this._formId);
-    //this.disableSubmitButton();
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this.disableSubmitButton();
