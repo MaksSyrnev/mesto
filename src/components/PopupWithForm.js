@@ -26,11 +26,11 @@ export default class PopupWithForm extends Popup {
 
   close() {  //Перезаписывает родительский метод - при закрытии попапа форма должна ещё и сбрасываться.
     this._formElement.reset();
-    // _disableSubmitButton() {
+    /* _disableSubmitButton() {
     const buttonElement = this._formElement.querySelector('.popup__button');
     buttonElement.classList.add('popup__button_disabled');
     buttonElement.setAttribute("disabled", "true");
-    //}; */
+    }; */
     super.close();
   }
 }

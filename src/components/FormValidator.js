@@ -42,7 +42,7 @@ class FormValidator {
   };
 
   //Выкл кнопку сабмит формы
-  _disableSubmitButton() {
+  disableSubmitButton() {
     const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
     buttonElement.classList.add(this._inactiveButtonClass);
     buttonElement.setAttribute("disabled", "true");
@@ -58,7 +58,7 @@ class FormValidator {
   //переключатель доступности кнопки формы сабмит
   _toggleButtonState() {
     if (this._hasInvalidInput(this._inputList)) {
-      this._disableSubmitButton(this._formElement);
+      this.disableSubmitButton(this._formElement);
     } else {
       this._ableSubmitButton(this._formElement);
     }
@@ -79,10 +79,10 @@ class FormValidator {
   //включение валидации всех форм
   enableValidation() {
     this._formElement = document.querySelector(this._formId);
-    this._disableSubmitButton();
+    //this.disableSubmitButton();
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._disableSubmitButton();
+      this.disableSubmitButton();
     });
     this._setEventListeners();
   }

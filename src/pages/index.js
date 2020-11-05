@@ -40,7 +40,9 @@ buttonEditProfile.addEventListener('click', function () {
 
 //слушатель- добавить карточку
 buttonAddCard.addEventListener('click', function () {
+  addForm.disableSubmitButton();
   popupAddCard.open();
+
 });
 
 //колбэк для просмотр карточки
