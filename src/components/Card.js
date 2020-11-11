@@ -32,6 +32,7 @@ class Card {
   }
 
   _deleteCard() {
+    this._elementCard.innerHTML = '';
     this._elementCard.remove();
   }
 

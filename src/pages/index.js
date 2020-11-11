@@ -7,19 +7,24 @@ import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 
-import { initialCards, configValidate, buttonEditProfile, buttonAddCard, inputName, inputJob } from '../components/constants.js';
+import { configValidate, buttonEditProfile, buttonAddCard, inputName, inputJob, avatar } from '../components/constants.js';
 
 //обработчики
 //форма редактировать профиль - enter или кнопка сохранить
-const handleEditCardFormSubmit = (formValues) => {
-  userInfo.setUserInfo(formValues);
+const handleEditCardFormSubmit = (evt) => {
+  evt.preventDefault();
+  const inputUserInfo = popupEditProfile._getInputValues();
+  userInfo.setUserInfo(inputUserInfo);
   popupEditProfile.close();
 }
 
 //обработчик формы добавить карточку
-const handleAddCardFormSubmit = (formValues) => {
-  const newElementCard = renderCardElement(formValues);
+const handleAddCardFormSubmit = (evt) => {
+  evt.preventDefault();
+  const inputsCardInfo = popupAddCard._getInputValues();
+  const newElementCard = renderCardElement(inputsCardInfo);
   cardList.addItem(newElementCard);
   popupAddCard.close();
 }
@@ -42,7 +47,6 @@ buttonEditProfile.addEventListener('click', function () {
 buttonAddCard.addEventListener('click', function () {
   addForm.disableSubmitButton();
   popupAddCard.open();
-
 });
 
 //колбэк для просмотр карточки
@@ -57,14 +61,50 @@ const renderCardElement = (item) => {
   return cardElement;
 };
 
-//работа с данными - инициализация
-//добавляем в разметку стартовый набор карточек из массива
-const cardList = new Section({ items: initialCards, renderer: renderCardElement }, '.elements__gallery');
-cardList.renderItems();
+//колбэк для отрисовки профиля
+const rederProfile = (userData) => {
+  userInfo.setUserInfo(userData);
+  avatar.src = userData.avatar;
 
+}
+
+//работа с данными - инициализация
 //включаем валидацию форм в документе
 const editForm = new FormValidator(configValidate, '.popup__form_js_editprofile');
 editForm.enableValidation();
 
 const addForm = new FormValidator(configValidate, '.popup__form_js_addcard');
 addForm.enableValidation();
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-17',
+  headers: {
+    authorization: '812995ab-7dea-4621-b929-530b002b0397',
+    'Content-Type': 'application/json'
+  }
+});
+
+//получаем профиль и прописываем на страницу
+api.getUserInfo().then((userData) => {
+  rederProfile(userData);
+});
+
+//получение стартового массива карточек
+api.getInitialCards().then((dataCards) => {
+  const cards = dataCards.map(item => {
+    return {
+      name: item.name,
+      link: item.link,
+    };
+  });
+  const cardList = new Section({
+    items: cards,
+    renderer: renderCardElement
+  }, '.elements__gallery');
+  cardList.renderItems();
+});
+
+
+//добавляем в разметку стартовый набор карточек из массива
+//const cardList = new Section({ items: items, renderer: renderCardElement }, '.elements__gallery');
+
