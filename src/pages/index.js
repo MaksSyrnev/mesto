@@ -23,9 +23,11 @@ const handleEditCardFormSubmit = (evt) => {
 //обработчик формы добавить карточку
 const handleAddCardFormSubmit = (evt) => {
   evt.preventDefault();
-  const inputsCardInfo = popupAddCard._getInputValues();
-  const newElementCard = renderCardElement(inputsCardInfo);
-  cardList.addItem(newElementCard);
+  const inputsCardInfo = popupAddCard.getInputValues();
+  api.createPost(inputsCardInfo).then((card) => {
+    const newElementCard = renderCardElement(card);
+    cardList.addItem(newElementCard);
+  });
   popupAddCard.close();
 }
 
@@ -33,7 +35,11 @@ const handleAddCardFormSubmit = (evt) => {
 const popupEditProfile = new PopupWithForm('.popup_js_editprofile', handleEditCardFormSubmit);
 const userInfo = new UserInfo({ nameSelector: '.profile__title', jobSelector: '.profile__subtitle' });
 const popupWithImage = new PopupWithImage('.popup_js_imgcard');
+
 const popupAddCard = new PopupWithForm('.popup_js_addcard', handleAddCardFormSubmit);
+
+
+
 
 //слушатель кнопки попапа редактировать профиль
 buttonEditProfile.addEventListener('click', function () {
@@ -89,6 +95,11 @@ api.getUserInfo().then((userData) => {
   rederProfile(userData);
 });
 
+const cardList = new Section({
+  items: api.getInitialCards().then((dataCards) => dataCards),
+  renderer: renderCardElement,
+}, '.elements__gallery');
+
 //получение стартового массива карточек
 api.getInitialCards().then((dataCards) => {
   const cards = dataCards.map(item => {
@@ -96,15 +107,8 @@ api.getInitialCards().then((dataCards) => {
       name: item.name,
       link: item.link,
     };
-  });
-  const cardList = new Section({
-    items: cards,
-    renderer: renderCardElement
-  }, '.elements__gallery');
-  cardList.renderItems();
+  }); console.log(cards);
+  cardList.renderItems(cards);
 });
 
-
-//добавляем в разметку стартовый набор карточек из массива
-//const cardList = new Section({ items: items, renderer: renderCardElement }, '.elements__gallery');
 

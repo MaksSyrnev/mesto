@@ -40,22 +40,44 @@ class Api {
 
   }
 
-  setUserInfo() {
+  saveUserInfo() {
+    fetch('https://mesto.nomoreparties.co/v1/cohortId/users/me', {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({
+        name: 'Marie Skłodowska Curie',
+        about: 'Physicist and Chemist'
+      })
+    });
+  }
+
+  createPost(newCard) {
+    return fetch(`${this.baseUrl}/cards`, {
+      method: 'POST',
+      body: JSON.stringify({
+        name: newCard.name,
+        link: newCard.link
+      }),
+      headers: this.headers
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+      })
+      .then((newCard) => {
+        return newCard;
+      })
+      .catch((err) => {
+        console.log('Ошибка. Карточка не загружена ', err);
+      });
 
   }
-  //   fetch('https://mesto.nomoreparties.co/v1/cohortId/users/me', {
-  //   method: 'PATCH',
-  //   headers: {
-  //     authorization: 'c56e30dc-2883-4270-a59e-b2f7bae969c6',
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify({
-  //     name: 'Marie Skłodowska Curie',
-  //     about: 'Physicist and Chemist'
-  //   })
-  // });
 
 }
+
+
 
 
 export default Api;
