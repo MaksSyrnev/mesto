@@ -40,15 +40,49 @@ class Api {
 
   }
 
-  saveUserInfo() {
-    fetch('https://mesto.nomoreparties.co/v1/cohortId/users/me', {
+  saveUserInfo(userInfo) {
+    return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
-        name: 'Marie Skłodowska Curie',
-        about: 'Physicist and Chemist'
+        name: userInfo.name,
+        about: userInfo.about
       })
-    });
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+      })
+      .then((userData) => {
+        return userData;
+      })
+      .catch((err) => {
+        console.log(err); // "Что-то пошло не так: ..."
+      });
+  }
+
+  setNewAvatar(userInfo) {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({
+        avatar: userInfo.avatar,
+      })
+    })
+      .then(() => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+      })
+      .then((userData) => {
+        return userData;
+      })
+      .catch((err) => {
+        console.log(err); // "Что-то пошло не так: ..."
+      });
   }
 
   createPost(newCard) {

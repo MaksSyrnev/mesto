@@ -4,6 +4,7 @@ class Card {
     this._link = item.link;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this.likes = item.likes;
 
   }
 
@@ -19,11 +20,13 @@ class Card {
     this._elementCard = this._getTemplate();
     this._imgCard = this._elementCard.querySelector('.elements__card-img');
     this._titleCard = this._elementCard.querySelector('.elements__card-title');
+    this._countLikes = this._elementCard.querySelector('.elements__card-count-like');
     this._setEventListeners();
 
     this._imgCard.src = this._link;
     this._imgCard.alt = this._name;
     this._titleCard.textContent = this._name;
+    this._countLikes.textContent = this.likes.length;
     return this._elementCard;
   }
 

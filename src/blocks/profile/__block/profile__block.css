@@ -4,6 +4,7 @@
   align-items: center;
   padding: 0;
   margin: 0;
+  position: relative;
 }
 
 @media screen and (max-width: 540px) {

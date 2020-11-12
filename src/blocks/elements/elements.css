@@ -6,6 +6,8 @@
 @import url(./__button-like/elements__button-like.css);
 @import url(./__button-del/elements__button-del.css);
 @import url(./__button-like/_checked/elements__button-like_checked.css);
+@import url(./__card-count-like/elements__card-count-like.css);
+@import url(./__card-likeblock/elements__card-likeblock.css);
 
 .elements {
   width: 100%;

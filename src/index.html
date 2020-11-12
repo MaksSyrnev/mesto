@@ -19,6 +19,7 @@
       <section class="profile">
         <div class="profile__block">
           <img src="./images/kusto.jpg" alt="фотография пользователя" class="profile__avatar">
+          <button type="button" aria-label="изменить" class="profile__edit-avatar"></button>
           <div class="profile__info">
             <div class="profile__info-row">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -92,12 +93,12 @@
     </section>
 
     <!--попап обновить аватар-->
-    <section class="popup">
+    <section class="popup popup_js_avatar">
       <div class="popup__container popup__container_type_form">
         <button type="button" aria-label="закрыть окно" class="popup__button-close-form"></button>
         <form name="popupavatar" method="GET" action="#" class="popup__form popup__form_js_avatar" novalidate>
           <h2 class="popup__form-title">Обновить аватар</h2>
-          <input type="url" name="link" placeholder="Ссылка на картинку" class="popup__input popup__input_js_avatar"
+          <input type="url" name="avatar" placeholder="Ссылка на картинку" class="popup__input popup__input_js_avatar"
             id="linkcard-input" required>
           <!-- Использую для идентификации поля ввода -->
           <span class="popup__error" id="linkcard-input-error">Заполнитель</span>
@@ -107,7 +108,7 @@
     </section>
 
     <!--попап подтверждения удаления-->
-    <section class="popup">
+    <section class="popup popup_js_yes">
       <div class="popup__container popup__container_type_form">
         <button type="button" aria-label="закрыть окно" class="popup__button-close-form"></button>
         <form name="popupyes" method="GET" action="#" class="popup__form popup__form_js_yes" novalidate>
@@ -120,25 +121,16 @@
   </div>
 
   <!--разметка шаблона для добавления карточки на страницу-->
-  <template id="user">
-    <div class="profile__block">
-      <img src="./images/kusto.jpg" alt="фотография пользователя" class="profile__avatar">
-      <div class="profile__info">
-        <div class="profile__info-row">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <button type="button" aria-label="изменить" class="profile__button-edit"></button>
-        </div>
-        <p class="profile__subtitle">Исследователь океана</p>
-      </div>
-    </div>
-  </template>
   <template id="card">
     <li class="elements__card">
       <button type="button" aria-label="удалить" class="elements__button-del"></button>
       <img class="elements__card-img">
       <div class="elements__card-footer">
         <h2 class="elements__card-title"></h2>
-        <button type="button" aria-label="понравилось" class="elements__button-like"></button>
+        <div class="elements__card-likeblock">
+          <button type="button" aria-label="понравилось" class="elements__button-like"></button>
+          <p class="elements__card-count-like"></p>
+        </div>
       </div>
     </li>
   </template>
