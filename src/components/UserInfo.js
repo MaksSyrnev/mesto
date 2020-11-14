@@ -1,8 +1,9 @@
 export default class UserInfo {
-  constructor({ nameSelector, jobSelector }) { //объект с селекторами двух элементов: элемента имени пользователя и элемента информации о себе
+  constructor({ nameSelector, jobSelector }, avatarSelector, handleAvatarClick) {
     this._nameProfile = document.querySelector(nameSelector);
     this._jobProfile = document.querySelector(jobSelector);
-    //this.userProfile = {};
+    this._avatarSelector = avatarSelector;
+    this._handleAvatarClick = handleAvatarClick;
   }
 
   getUserInfo() { //возвращает объект с данными пользователя
@@ -16,5 +17,25 @@ export default class UserInfo {
     this._jobProfile.textContent = inputsUserInfo.about;
   }
 
+  _getTemplate() {
+    const avatarElement = document
+      .querySelector(this._avatarSelector)
+      .content.querySelector('.profile__avatar')
+      .cloneNode(true);
+    return avatarElement;
+  }
+
+  setAvatar(inputsUserInfo) {
+    this._avatarElement = this._getTemplate();
+    //this._avatarElement.innerHTML = '';
+    // this._setEventListener();
+    this._avatarElement.src = inputsUserInfo.avatar;
+    document.querySelector('.profile__block').prepend(this._avatarElement);
+
+  }
+
+  _setEventListener() {
+    this._avatarElement.addEventListener('click', this._handleAvatarClick);
+  }
 }
 
