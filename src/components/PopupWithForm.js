@@ -11,7 +11,7 @@ export default class PopupWithForm extends Popup {
     const formValues = {};
     this._inputList.forEach(input => {
       formValues[input.name] = input.value;
-    });  //записываем значения полей, в качестве имени свойства обьекта берем звнчение свойства name инпута из разметки
+    });  //записываем значения полей, в качестве имени свойства обьекта берем значение свойства name инпута из разметки
     return formValues;
   }
 
@@ -24,5 +24,33 @@ export default class PopupWithForm extends Popup {
   close() {  //Перезаписывает родительский метод - при закрытии попапа форма должна ещё и сбрасываться.
     this._formElement.reset();
     super.close();
+
   }
+
+  preLoading(isLoading) {
+    this._buttonSave = this._popup.querySelector('.popup__button');
+    if (isLoading) {
+      this._buttonSave.textContent = 'Сохранение...';
+      this._buttonSave.classList.add('popup__button_saving');
+      this._buttonSave.classList.remove('popup__button_disabled');
+    } else {
+      this._buttonSave.textContent = 'Сохранить';
+      this._buttonSave.classList.remove('popup__button_saving');
+      this._buttonSave.classList.add('popup__button_disabled');
+    }
+  }
+
+  preLoadingCard(isLoading) {
+    this._buttonSave = this._popup.querySelector('.popup__button');
+    if (isLoading) {
+      this._buttonSave.textContent = 'Сохранение...';
+      this._buttonSave.classList.add('popup__button_saving');
+      this._buttonSave.classList.remove('popup__button_disabled');
+    } else {
+      this._buttonSave.textContent = 'Создать';
+      this._buttonSave.classList.remove('popup__button_saving');
+      this._buttonSave.classList.add('popup__button_disabled');
+    }
+  }
+
 }

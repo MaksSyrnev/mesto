@@ -12,37 +12,6 @@
 
 }
 
-.profile__avatar:hover {
-  cursor: pointer;
-  /* rgba(0, 0, 0, 0.8); */
-}
-/*
-.profile__avatar::before {
-  content: '';
-  background-image: url(../../../images/pen.svg);
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
-}
-
-
-.cover__link::after {
-  content: '';
-  background-color: rgba(42, 44, 47, .3);
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-}
-*/
 @media screen and (max-width: 540px) {
   .profile__avatar {
     margin: 0 auto;

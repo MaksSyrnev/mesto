@@ -21,6 +21,7 @@ class Api {
       .catch((err) => {
         console.log(err); // "Что-то пошло не так: ..."
       });
+
   }
 
   createPost(newCard) {
@@ -142,6 +143,7 @@ class Api {
       .catch((err) => {
         console.log(err); // "Что-то пошло не так: ..."
       });
+
   }
 
   setNewAvatar(userInfo) {
@@ -152,7 +154,7 @@ class Api {
         avatar: userInfo.avatar,
       })
     })
-      .then(() => {
+      .then((res) => {
         if (res.ok) {
           return res.json();
         }
@@ -164,13 +166,10 @@ class Api {
       .catch((err) => {
         console.log(err); // "Что-то пошло не так: ..."
       });
+
   }
 
 
-
 }
-
-
-
 
 export default Api;

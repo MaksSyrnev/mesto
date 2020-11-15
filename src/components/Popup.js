@@ -11,7 +11,6 @@ class Popup {
   _handleEscClose(evt) {
     if (evt.key === "Escape") {
       this.close();
-
     }
 
   }
@@ -20,6 +19,7 @@ class Popup {
     if (evt.target.classList.contains('popup_opened')) {
       this.close();
     }
+
   }
 
   open() {
@@ -40,7 +40,9 @@ class Popup {
     this._buttonClosePopup.addEventListener('click', this.close);
     document.addEventListener('keyup', this._handleEscClose);
     document.addEventListener('click', this._handleClickClose);
+
   }
+
 
 }
 

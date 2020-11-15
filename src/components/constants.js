@@ -38,4 +38,4 @@ export const buttonEditProfile = document.querySelector('.profile__button-edit')
 export const inputName = document.querySelector('.popup__input_js_username'); //поле ввода имени
 export const inputJob = document.querySelector('.popup__input_js_job'); // поле ввода профессии
 export const buttonAddCard = document.querySelector('.profile__button-add'); //кнопка добавить на странице
-//export const avatar = document.querySelector('.profile__avatar'); //кнопка добавить на странице
+export const avatarEditButton = document.querySelector('.profile__edit-avatar'); //кнопка добавить на странице

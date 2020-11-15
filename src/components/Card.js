@@ -55,7 +55,6 @@ class Card {
       this._elementCard.querySelector('.elements__button-like').classList.add('elements__button-like_checked');
     };
     this._countLikes.textContent = this.likes.length;
-    //console.log(this, this.likes);
   }
 
   updateLikes(data) {

@@ -11,7 +11,7 @@
 @import url(./__button/_yes/popup__button_yes.css);
 @import url(./__img/popup__img.css);
 @import url(./__img-name/popup__img-name.css);
-
+@import url(./__button/_saving/popup__button_saving.css);
 
 .popup {
   display: flex;
