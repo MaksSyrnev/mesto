@@ -11,15 +11,14 @@ import Api from '../components/Api.js';
 
 import { configValidate, buttonEditProfile, buttonAddCard, inputName, inputJob, avatar } from '../components/constants.js';
 import PopupYes from '../components/PopupYes';
-
 const ownerUser = { id: "" }; //id пользователя.
-//обработчики
+
+//обработчики сабмитов
 //обработчик формы добавить карточку
 const handleAddCardFormSubmit = (evt) => {
   evt.preventDefault();
   const inputsCardInfo = popupAddCard.getInputValues();
   api.createPost(inputsCardInfo).then((card) => {
-    console.log(card);
     const newElementCard = renderCardElement(card);
     cardList.addItem(newElementCard);
   });
@@ -47,17 +46,11 @@ const handleEditAvatarFormSubmit = (evt) => {
   popupEditAvatar.close();
 }
 
-//обработчик удаления
-const handleDeleteCardFormSubmit = (evt) => {
-  evt.preventDefault();
-  popupYes.close();
-}
-
 //инициализация классов
 const popupEditProfile = new PopupWithForm('.popup_js_editprofile', handleEditProfileFormSubmit);
 const userInfo = new UserInfo({ nameSelector: '.profile__title', jobSelector: '.profile__subtitle' }, '#avatar', handleAvatarClick);
 const popupWithImage = new PopupWithImage('.popup_js_imgcard');
-const popupYes = new PopupYes('.popup_js_yes', handleDeleteCardFormSubmit);
+const popupYes = new PopupYes('.popup_js_yes', /* handleDeleteCardFormSubmit */);
 const popupAddCard = new PopupWithForm('.popup_js_addcard', handleAddCardFormSubmit);
 const popupEditAvatar = new PopupWithForm('.popup_js_avatar', handleEditAvatarFormSubmit);
 
@@ -91,14 +84,39 @@ const handleCardClick = (evt) => {
 }
 
 //лакнуть
-function handleLikeClick(id) {
-  console.log(id);
-  //evt.target.classList.toggle('elements__button-like_checked');
+function handleLikeClick(card) {
+  if (card.isLiked()) {
+    api.unlikePost(card.itemId).then((data) => {
+      card.updateLikes(data);
+    }).then(() => {
+      card._countLikes.textContent = card.likes.length;
+    });
+  } else {
+    api.likePost(card.itemId).then((data) => {
+      card.updateLikes(data);
+    }).then(() => {
+      card._countLikes.textContent = card.likes.length;
+    });
+  }
+}
+
+//кнопка удаление на карточке
+function handleDelClick(card) {
+  popupYes.open();
+  document.querySelector('.popup__form_js_yes').addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    api.deletePost(card.itemId).then((status) => {
+      if (status) {
+        card.deleteCard();
+        popupYes.close();
+      };
+    });
+  });
 }
 
 //сборка элемента карточка
 const renderCardElement = (item) => {
-  const card = new Card(item, '#card', handleCardClick, handleLikeClick, ownerUser.id);
+  const card = new Card(item, '#card', handleCardClick, handleLikeClick, handleDelClick, ownerUser.id);
   const cardElement = card.createCard();
   return cardElement;
 };
@@ -128,7 +146,6 @@ api.getUserInfo().then((userData) => {
   userInfo.setUserInfo(userData);
   userInfo.setAvatar(userData);
   ownerUser.id = userData._id;
-  console.log(ownerUser);
 });
 
 const cardList = new Section({
@@ -140,5 +157,4 @@ const cardList = new Section({
 api.getInitialCards().then((dataCards) => {
   cardList.renderItems(dataCards);
 });
-
 

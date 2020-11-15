@@ -23,6 +23,87 @@ class Api {
       });
   }
 
+  createPost(newCard) {
+    return fetch(`${this.baseUrl}/cards`, {
+      method: 'POST',
+      body: JSON.stringify({
+        name: newCard.name,
+        link: newCard.link
+      }),
+      headers: this.headers
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+      })
+      .then((newCard) => {
+        return newCard;
+      })
+      .catch((err) => {
+        console.log('Ошибка. Карточка не загружена ', err);
+      });
+
+  }
+
+  deletePost(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this.headers
+    })
+      .then((res) => {
+        if (res.ok) {
+          return status = res.ok
+        }
+        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log('Ответ от сервера не получен ', err);
+      });
+
+  }
+
+  likePost(cardId) {
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {   // https://mesto.nomoreparties.co/v1/cohortId/cards/likes/cardId
+      method: 'PUT',
+      headers: this.headers
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        console.log('Ответ от сервера не получен ', err);
+      });
+
+  }
+
+  unlikePost(cardId) {
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+      method: 'DELETE',
+      headers: this.headers
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        console.log('Ответ от сервера не получен ', err);
+      });
+
+  }
+
   getUserInfo() {
     return fetch(`${this.baseUrl}/users/me`, { headers: this.headers })
       .then((res) => {
@@ -85,29 +166,7 @@ class Api {
       });
   }
 
-  createPost(newCard) {
-    return fetch(`${this.baseUrl}/cards`, {
-      method: 'POST',
-      body: JSON.stringify({
-        name: newCard.name,
-        link: newCard.link
-      }),
-      headers: this.headers
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
-      })
-      .then((newCard) => {
-        return newCard;
-      })
-      .catch((err) => {
-        console.log('Ошибка. Карточка не загружена ', err);
-      });
 
-  }
 
 }
 
