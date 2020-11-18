@@ -23,15 +23,16 @@ class Popup {
   }
 
   open() {
-    this.setEventListeners();
+    //this.setEventListeners();
+    document.addEventListener('keyup', this._handleEscClose);
     this._popup.classList.add('popup_opened');
 
   }
 
   close() {
     document.removeEventListener('keyup', this._handleEscClose);
-    document.removeEventListener('click', this._handleClickClose);
-    this._buttonClosePopup.removeEventListener('click', this.close);
+    //document.removeEventListener('click', this._handleClickClose);
+    // this._buttonClosePopup.removeEventListener('click', this.close);
     this._popup.classList.remove('popup_opened');
 
   }
@@ -39,7 +40,7 @@ class Popup {
   setEventListeners() {
     this._buttonClosePopup.addEventListener('click', this.close);
     document.addEventListener('click', this._handleClickClose);
-    document.addEventListener('keyup', this._handleEscClose);
+    //document.addEventListener('keyup', this._handleEscClose);
 
   }
 

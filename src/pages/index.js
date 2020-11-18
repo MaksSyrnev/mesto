@@ -73,11 +73,16 @@ const handleEditAvatarFormSubmit = (dataCard) => {
 
 //инициализация классов
 const popupEditProfile = new PopupWithForm('.popup_js_editprofile', handleEditProfileFormSubmit);
+popupEditProfile.setEventListeners();
 const userInfo = new UserInfo({ nameSelector: '.profile__title', jobSelector: '.profile__subtitle' }, '.profile__avatar');
 const popupWithImage = new PopupWithImage('.popup_js_imgcard');
+popupWithImage.setEventListeners();
 const popupWithFormSubmit = new PopupWithFormSubmit('.popup_js_yes');
+popupWithFormSubmit.setEventListeners();
 const popupAddCard = new PopupWithForm('.popup_js_addcard', handleAddCardFormSubmit);
+popupAddCard.setEventListeners();
 const popupEditAvatar = new PopupWithForm('.popup_js_avatar', handleEditAvatarFormSubmit);
+popupEditAvatar.setEventListeners();
 
 //слушатели событий
 //кнопка добавить карточку
@@ -148,7 +153,6 @@ function handleDelClick(card) {
         })
     }
   });
-  popupWithFormSubmit.setEventListeners();
 }
 
 //сборка элемента карточка
