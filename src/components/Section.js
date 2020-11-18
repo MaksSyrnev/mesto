@@ -11,8 +11,8 @@ class Section {
 
   }
 
-  renderItems(Items) {
-    Items.forEach((item) => {
+  renderItems(items) {
+    items.forEach((item) => {
       this._container.append(this._renderer(item));
 
     });

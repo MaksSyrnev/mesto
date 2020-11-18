@@ -13,14 +13,8 @@ class Api {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+        return Promise.reject(new Error(`Что-то пошло не так: ${res.status}`));
       })
-      .then((dataCards) => {
-        return dataCards;
-      })
-      .catch((err) => {
-        console.log(err); // "Что-то пошло не так: ..."
-      });
 
   }
 
@@ -37,14 +31,8 @@ class Api {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+        return Promise.reject(new Error(`Что-то пошло не так: ${res.status}`));
       })
-      .then((newCard) => {
-        return newCard;
-      })
-      .catch((err) => {
-        console.log('Ошибка. Карточка не загружена ', err);
-      });
 
   }
 
@@ -57,11 +45,8 @@ class Api {
         if (res.ok) {
           return status = res.ok
         }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+        return Promise.reject(new Error(`Что-то пошло не так: ${res.status}`));
       })
-      .catch((err) => {
-        console.log('Ответ от сервера не получен ', err);
-      });
 
   }
 
@@ -74,14 +59,8 @@ class Api {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+        return Promise.reject(new Error(`Что-то пошло не так: ${res.status}`));
       })
-      .then((data) => {
-        return data;
-      })
-      .catch((err) => {
-        console.log('Ответ от сервера не получен ', err);
-      });
 
   }
 
@@ -94,14 +73,8 @@ class Api {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+        return Promise.reject(new Error(`Что-то пошло не так: ${res.status}`));
       })
-      .then((data) => {
-        return data;
-      })
-      .catch((err) => {
-        console.log('Ответ от сервера не получен ', err);
-      });
 
   }
 
@@ -111,14 +84,8 @@ class Api {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+        return Promise.reject(new Error(`Что-то пошло не так: ${res.status}`));
       })
-      .then((userInfo) => {
-        return userInfo;
-      })
-      .catch((err) => {
-        console.log(err); // "Что-то пошло не так: ..."
-      });
 
   }
 
@@ -135,14 +102,8 @@ class Api {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+        return Promise.reject(new Error(`Что-то пошло не так: ${res.status}`));
       })
-      .then((userData) => {
-        return userData;
-      })
-      .catch((err) => {
-        console.log(err); // "Что-то пошло не так: ..."
-      });
 
   }
 
@@ -158,14 +119,8 @@ class Api {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+        return Promise.reject(new Error(`Что-то пошло не так: ${res.status}`));
       })
-      .then((userData) => {
-        return userData;
-      })
-      .catch((err) => {
-        console.log(err); // "Что-то пошло не так: ..."
-      });
 
   }
 
