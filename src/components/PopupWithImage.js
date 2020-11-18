@@ -12,7 +12,6 @@ export default class PopupWithImage extends Popup {
     this._imgCard.src = link;
     this._imgCard.alt = name;
     this._nameImgCard.textContent = name;
-    //super.setEventListeners();
     super.open();
   }
 
